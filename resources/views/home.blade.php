@@ -9,7 +9,7 @@
                 <table id="rasl" class="table table-stripped table-bordered table-hover" cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>Week Ending</th>
+                            <th>Date loaded</th>
                             <th>Group</th>
                             <th>Driver</th>
                             <th>Action</th>
@@ -17,7 +17,7 @@
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>Week Ending</th>
+                            <th>Date loaded</th>
                             <th>Group</th>
                             <th>Driver</th>
                             <th>Action</th>
@@ -26,7 +26,7 @@
                     <tbody>
                         @foreach($activities as $activity)
                         <tr>    
-                            <td>{{ $activity->weekending }}</td>
+                            <td>{{ $activity->dateloaded }}</td>
                             <td>{{ $activity->groupnumber }}</td>
                             <td>{{ $activity->driver }}</td>
                             <td>

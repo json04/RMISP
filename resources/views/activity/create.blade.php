@@ -106,7 +106,7 @@
 
 						<div class="col-lg-4 col-sm-4">
 						    <div class="form-group">
-						      <label for="inputHAULTON" class="col-lg-4 control-label" style="color: red;">Haul/Ton</label>
+						      <label for="inputHAULTON" class="col-lg-4 control-label" style="color: red;">(1)Haul/Ton</label>
 						      <div class="col-lg-8">
 						        <input type="text" class="form-control" name="haulton" id="inputHAULTON" placeholder="Haul/Ton">
 						      </div>
@@ -133,7 +133,7 @@
 
 						<div class="col-lg-4 col-sm-4">
 						    <div class="form-group">
-						      <label for="inputNUMBEROFHARVESTER" class="col-lg-4 control-label" style="color: red;">Number of Harvester</label>
+						      <label for="inputNUMBEROFHARVESTER" class="col-lg-4 control-label" style="color: red;">(2)Number of Harvester</label>
 						      <div class="col-lg-8">
 						        <input type="text" class="form-control" name="numberofharvester" id="inputNUMBEROFHARVESTER" placeholder="Number of Harvester">
 						      </div>
@@ -142,7 +142,7 @@
 
 						<div class="col-lg-4 col-sm-4">
 						    <div class="form-group">
-						      <label for="inputRATETON" class="col-lg-4 control-label" style="color: red;">Rate/Ton</label>
+						      <label for="inputRATETON" class="col-lg-4 control-label" style="color: red;">(3)Rate/Ton</label>
 						      <div class="col-lg-8">
 						        <input type="text" class="form-control" name="rateton" id="inputRATETON" placeholder="Rate/Ton">
 						      </div>
@@ -160,7 +160,7 @@
 
 						<div class="col-lg-4 col-sm-4">
 						    <div class="form-group">
-						      <label for="inputGROSSTONS" class="col-lg-4 control-label" style="color: red;">Gross Tons</label>
+						      <label for="inputGROSSTONS" class="col-lg-4 control-label" style="color: red;">(4)Gross Tons</label>
 						      <div class="col-lg-8">
 						        <input type="text" class="form-control" name="grosstons" id="inputGROSSTONS" placeholder="Gross Tons">
 						      </div>
@@ -169,7 +169,7 @@
 
 						<div class="col-lg-4 col-sm-4">
 						    <div class="form-group">
-						      <label for="inputTRASHPERCENTAGE" class="col-lg-4 control-label" style="color: red;">Trash %</label>
+						      <label for="inputTRASHPERCENTAGE" class="col-lg-4 control-label" style="color: red;">(5)Trash %</label>
 						      <div class="col-lg-8">
 						        <input type="text" class="form-control" name="trashpercentage" id="inputTRASHPERCENTAGE" placeholder="Trash %">
 						      </div>

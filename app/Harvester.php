@@ -10,7 +10,7 @@ class Harvester extends Model
         'fname', 'mname', 'lname', 'address', 'contact',
     ];
 
-    public function HarvesterActivity()
+    public function harvesteractivities()
     {
     	return $this->hasMany('App\HarvesterActivity');
     }

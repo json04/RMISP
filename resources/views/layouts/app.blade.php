@@ -15,6 +15,7 @@
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/sweetalert.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -55,7 +56,7 @@
 
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a href="#">Harvester Individual Report</a>
+                                <a href="{{ url('/harvester-individual-report') }}">Harvester Individual Report</a>
                             </li>
                             <li>
                                 <a href="#">Group Harvesting Report</a>
@@ -104,7 +105,6 @@
           </div>
         </nav>
     </div>
-
     @yield('content')
 
     <footer class="footer">
@@ -121,8 +121,10 @@
     <script src="{{ asset('js/jquery-3.2.1.js') }}"></script>
     <script src="{{ asset('js/jquery-ui.js') }}"></script>
     <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('js/sweetalert.min.js') }}"></script>
     <script src="{{ asset('js/jquery.dataTables.min.js') }}" ></script>
     <script src="{{ asset('js/dataTables.bootstrap.min.js') }}"></script>
     @yield('scripts')
+    @include('sweet::alert')
 </body>
 </html>

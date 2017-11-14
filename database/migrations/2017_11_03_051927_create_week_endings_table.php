@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateHarvesterActivitiesTable extends Migration
+class CreateWeekEndingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,16 @@ class CreateHarvesterActivitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('harvester_activities', function (Blueprint $table) {
+        Schema::create('week_endings', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('harvesters_id')->unsigned()->index();
             $table->integer('activities_id')->unsigned()->index();
+            $table->string('weekending');
+            $table->string('dateloaded');
             $table->timestamps();
 
             $table->foreign('activities_id')
                 ->references('id')
                 ->on('activities')
-                ->onDelete('cascade');
-
-            $table->foreign('harvesters_id')
-                ->references('id')
-                ->on('harvesters')
                 ->onDelete('cascade');
         });
     }
@@ -38,6 +34,6 @@ class CreateHarvesterActivitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('harvester_activities');
+        Schema::dropIfExists('week_endings');
     }
 }

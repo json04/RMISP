@@ -27,4 +27,8 @@ Route::post('/create-harvester-post', 'HarvesterController@store');
 
 
 //viewing actions
-Route::get('/view/{id}', 'HomeController@retrieve');
+Route::get('/rmisp/public/view/{id}', 'HomeController@retrieve');
+
+//reports
+Route::get('/harvester-individual-report', 'ReportsController@hir');
+Route::post('/search-week-ending-hir', 'ReportsController@searchHir');

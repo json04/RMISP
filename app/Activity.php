@@ -8,7 +8,7 @@ class Activity extends Model
 {
     protected $fillable = [
     	'reference', 'dateloaded', 'sdt', 
-    	'unitid', 'weekending', 'groupnumber',
+    	'unitid', 'groupnumber',
     	'haulton', 'driver', 'block',
     	'numberofharvest', 'rateton', 'datemilled',
     	'grosstons', 'trashpercentage', 'mill',
@@ -17,8 +17,14 @@ class Activity extends Model
     	'duedriver', 'dueunit',
     ]; 
 
-    public function HarvesterActivity() 
+    public function harvesteractivities() 
     {
     	return $this->hasMany('App\HarvesterActivity');
     }
+
+    public function weekendings()
+    {
+        return $this->hasMany('App\WeekEnding');
+    }
+
 }

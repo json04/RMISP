@@ -20,7 +20,6 @@ class CreateActivitiesTable extends Migration
             $table->string('dateloaded');
             $table->integer('sdt');
             $table->string('unitid');
-            $table->string('weekending');
             $table->integer('groupnumber');
             $table->double('haulton', 15, 8);
             $table->string('driver');

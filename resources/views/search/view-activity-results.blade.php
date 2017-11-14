@@ -20,7 +20,7 @@
 			    	</div>
 			    	<div class="col-md-4">
 			    		<h5><strong style="color: red;">Date Loaded:</strong> {{$activities->dateloaded}}</h5>
-			    		<h5><strong style="color: red;">Week Ending:</strong> {{$activities->weekending}}</h5>
+			    		<h5><strong style="color: red;">Week Ending:</strong> @foreach($queries as $query) {{$query->weekending}}@endforeach</h5>
 			    		<h5><strong style="color: red;">Driver:</strong> {{$activities->driver}}</h5>
 			    		<h5><strong style="color: red;">Rate/Ton:</strong> {{$activities->rateton}}</h5>
 			    		<h5><strong style="color: red;">Trash %:</strong> {{$activities->trashpercentage}}</h5>

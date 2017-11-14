@@ -10,11 +10,11 @@ class HarvesterActivity extends Model
 
     public function activities()
     {
-    	return $this->hasOne('App\Activity');
+    	return $this->belongsTo('App\Activity');
     }
 
-    public function Harvester()
+    public function harvesters()
     {
-    	return $this->hasMany('App\Harvester');
+    	return $this->belongsTo('App\Harvester');
     }
 }

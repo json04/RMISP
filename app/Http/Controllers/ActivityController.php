@@ -6,8 +6,11 @@ use Illuminate\Http\Request;
 use App\Harvester;
 use App\HarvesterActivity;
 use App\Activity;
+use App\WeekEnding;
+use App\DateLoaded;
 use Input;
 use DB;
+use Alert;
 
 class ActivityController extends Controller
 {
@@ -26,7 +29,6 @@ class ActivityController extends Controller
         $activity->dateloaded = $request->Input('dateloaded');
         $activity->sdt = $request->Input('sdt');
         $activity->unitid = $request->Input('unitid');
-        $activity->weekending = $request->Input('we');
         $activity->groupnumber = $request->Input('groupnumber');
         $activity->haulton = $request->Input('haulton');
         $activity->driver = $request->Input('driver');
@@ -47,6 +49,18 @@ class ActivityController extends Controller
         $activity->dueunit = $request->Input('dueunit');
         $activity->save();
 
+        $we = new WeekEnding;
+        $we->activities_id = $activity->id;
+        $we->weekending = $request->Input('we');
+        $we->dateloaded = $request->Input('dateloaded');
+        $we->save();
+
+        // $dl = new DateLoaded;
+        // $dl->week_endings_id = $we->id;
+        // $dl->activities_id = $activity->id;
+        // $dl->dateloaded = $request->Input('dateloaded');
+        // $dl->save();
+
         $harvest = collect($request->Input('harvesterSelect'));
         $toArray = $harvest->toArray();
         $result = array_filter($toArray, function($data){
@@ -59,6 +73,7 @@ class ActivityController extends Controller
             $storeHarvester->save();
         }
 
+        Alert::success('Date have been successfully added to database!', 'Success!');
         return back()->withInput(); 
         // $harvesterSelect = $request->Input('harvesterSelect');
         // DB::table('harvester_activities')->insert([
