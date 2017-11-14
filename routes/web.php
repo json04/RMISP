@@ -32,3 +32,4 @@ Route::get('/rmisp/public/view/{id}', 'HomeController@retrieve');
 //reports
 Route::get('/harvester-individual-report', 'ReportsController@hir');
 Route::post('/search-week-ending-hir', 'ReportsController@searchHir');
+Route::post('/generate-week-ending-hir-excel', 'ReportsController@generateHir');

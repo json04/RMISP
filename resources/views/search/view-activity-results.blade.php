@@ -9,33 +9,33 @@
 				 </div>
 			  	<div class="panel-body">
 			    	<div class="col-md-4">
-			    		<h5><strong style="color: red;">Reference:</strong> {{$activities->reference}}</h5>
-			    		<h5><strong style="color: red;">Unit ID:</strong> {{$activities->unitid}}</h5>
-			    		<h5><strong style="color: red;">Haul/Ton:</strong> {{$activities->haulton}}</h5>
-			    		<h5><strong style="color: red;">Number of Harvest:</strong> {{$activities->numberofharvester}}</h5>
-			    		<h5><strong style="color: red;">Gross Tons:</strong> {{$activities->grosstons}}</h5>
-			    		<h5><strong style="color: red;">Trash Total:</strong> {{$activities->trashtotal}}</h5>
-			    		<h5><strong style="color: red;">Molases:</strong> {{$activities->molases}}</h5>
-			    		<h5><strong style="color: red;">Due Driver:</strong> {{$activities->duedriver}}</h5>
+			    		<h5><strong style="color: yellow;">Reference:</strong> {{$activities->reference}}</h5>
+			    		<h5><strong style="color: yellow;">Unit ID:</strong> {{$activities->unitid}}</h5>
+			    		<h5><strong style="color: yellow;">Haul/Ton:</strong> {{$activities->haulton}}</h5>
+			    		<h5><strong style="color: yellow;">Number of Harvest:</strong> {{$activities->numberofharvester}}</h5>
+			    		<h5><strong style="color: yellow;">Gross Tons:</strong> {{$activities->grosstons}}</h5>
+			    		<h5><strong style="color: yellow;">Trash Total:</strong> {{$activities->trashtotal}}</h5>
+			    		<h5><strong style="color: yellow;">Molases:</strong> {{$activities->molases}}</h5>
+			    		<h5><strong style="color: yellow;">Due Driver:</strong> {{$activities->duedriver}}</h5>
 			    	</div>
 			    	<div class="col-md-4">
-			    		<h5><strong style="color: red;">Date Loaded:</strong> {{$activities->dateloaded}}</h5>
-			    		<h5><strong style="color: red;">Week Ending:</strong> @foreach($queries as $query) {{$query->weekending}}@endforeach</h5>
-			    		<h5><strong style="color: red;">Driver:</strong> {{$activities->driver}}</h5>
-			    		<h5><strong style="color: red;">Rate/Ton:</strong> {{$activities->rateton}}</h5>
-			    		<h5><strong style="color: red;">Trash %:</strong> {{$activities->trashpercentage}}</h5>
-			    		<h5><strong style="color: red;">Net Tons:</strong> {{$activities->nettons}}</h5>
-			    		<h5><strong style="color: red;">Due Harvesters:</strong> {{$activities->dueharvesters}}</h5>
-			    		<h5><strong style="color: red;">Due Unit:</strong> {{$activities->dueunit}}</h5>
+			    		<h5><strong style="color: yellow;">Date Loaded:</strong> {{$activities->dateloaded}}</h5>
+			    		<h5><strong style="color: yellow;">Week Ending:</strong> @foreach($queries as $query) {{$query->weekending}}@endforeach</h5>
+			    		<h5><strong style="color: yellow;">Driver:</strong> {{$activities->driver}}</h5>
+			    		<h5><strong style="color: yellow;">Rate/Ton:</strong> {{$activities->rateton}}</h5>
+			    		<h5><strong style="color: yellow;">Trash %:</strong> {{$activities->trashpercentage}}</h5>
+			    		<h5><strong style="color: yellow;">Net Tons:</strong> {{$activities->nettons}}</h5>
+			    		<h5><strong style="color: yellow;">Due Harvesters:</strong> {{$activities->dueharvesters}}</h5>
+			    		<h5><strong style="color: yellow;">Due Unit:</strong> {{$activities->dueunit}}</h5>
 			    	</div>
 			    	<div class="col-md-4">
-			    		<h5><strong style="color: red;">SDT #:</strong> {{$activities->sdt}}</h5>
-			    		<h5><strong style="color: red;">Group Number:</strong> {{$activities->groupnumber}}</h5>
-			    		<h5><strong style="color: red;">Block #:</strong> {{$activities->block}}</h5>
-			    		<h5><strong style="color: red;">Date Milled:</strong> {{$activities->datemilled}}</h5>
-			    		<h5><strong style="color: red;">Mill:</strong> {{$activities->mill}}</h5>
-			    		<h5><strong style="color: red;">Sugar:</strong> {{$activities->sugar}}</h5>
-			    		<h5><strong style="color: red;">Due/Harvesters:</strong> {{$activities->dueperharvesters}}</h5>
+			    		<h5><strong style="color: yellow;">SDT #:</strong> {{$activities->sdt}}</h5>
+			    		<h5><strong style="color: yellow;">Group Number:</strong> {{$activities->groupnumber}}</h5>
+			    		<h5><strong style="color: yellow;">Block #:</strong> {{$activities->block}}</h5>
+			    		<h5><strong style="color: yellow;">Date Milled:</strong> {{$activities->datemilled}}</h5>
+			    		<h5><strong style="color: yellow;">Mill:</strong> {{$activities->mill}}</h5>
+			    		<h5><strong style="color: yellow;">Sugar:</strong> {{$activities->sugar}}</h5>
+			    		<h5><strong style="color: yellow;">Due/Harvesters:</strong> {{$activities->dueperharvesters}}</h5>
 			    	</div>
 			  	</div>
 			  	<div class="panel-footer" align="center">
