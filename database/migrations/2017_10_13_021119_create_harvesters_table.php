@@ -16,10 +16,11 @@ class CreateHarvestersTable extends Migration
         Schema::create('harvesters', function (Blueprint $table) {
             $table->increments('id');
             $table->string('fname');
-            $table->string('mname');
+            $table->string('mname')->nullable();
             $table->string('lname');
+            $table->string('suffix')->nullable();
             $table->string('address');
-            $table->string('contact');
+            $table->string('contact')->nullable();
             $table->timestamps();
         });
     }

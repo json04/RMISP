@@ -48,28 +48,28 @@
                 <table id="harvesters" class="table table-stripped table-bordered table-hover" cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>First Name</th>
-                            <th>Middle Name</th>
                             <th>Last Name</th>
+                            <th>First Name</th>
+                            <th>Suffix</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>First Name</th>
-                            <th>Middle Name</th>
                             <th>Last Name</th>
+                            <th>First Name</th>
+                            <th>Suffix</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>
                     <tbody>
                         @foreach($harvesters as $harvester)
                         <tr>    
-                            <td>{{ $harvester->fname }}</td>
-                            <td>{{ $harvester->mname }}</td>
                             <td>{{ $harvester->lname }}</td>
+                            <td>{{ $harvester->fname }}</td>
+                            <td>{{ $harvester->suffix }}</td>
                             <td>
-                                action....
+                                Edit(under construction)
                             </td>
                         </tr>
                         @endforeach

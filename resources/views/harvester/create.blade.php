@@ -37,6 +37,15 @@
 					    </div>
 					</div>
 
+					<div class="col-lg-4 col-sm-4">
+					    <div class="form-group">
+					      <label for="inputSuffix" class="col-lg-4 control-label">Suffix</label>
+					      <div class="col-lg-8">
+					        <input type="text" class="form-control" name="suffix" id="inputSuffix" placeholder="ex. Jr. , Sr.">
+					      </div>
+					    </div>
+					</div>
+
 					<div class="col-lg-8 col-sm-8">
 					    <div class="form-group">
 					      <label for="inputAddress" class="col-lg-4 control-label">Address</label>

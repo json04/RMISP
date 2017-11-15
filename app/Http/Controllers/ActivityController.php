@@ -73,7 +73,7 @@ class ActivityController extends Controller
             $storeHarvester->save();
         }
 
-        Alert::success('Date have been successfully added to database!', 'Success!');
+        Alert::success('Data have been successfully added to database!', 'Success!');
         return back()->withInput(); 
         // $harvesterSelect = $request->Input('harvesterSelect');
         // DB::table('harvester_activities')->insert([
