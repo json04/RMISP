@@ -18,20 +18,20 @@ class ReportsController extends Controller
 
     public function searchHir(Request $request){
     	$weekending = $request->Input('weekending');
-    	// $queries = DB::table('harvester_activities')
-     //        ->leftJoin('week_endings', 'harvester_activities.activities_id', '=', 'week_endings.activities_id')->where('week_endings.weekending', '=', $weekending)
-     //        ->leftJoin('harvesters', 'harvester_activities.harvesters_id', '=', 'harvesters.id')
-     //        ->leftjoin('activities', 'week_endings.activities_id', '=', 'activities.id')->get();
-     //    $arrays = $queries->toArray();
-     //    if (empty($arrays)) {
-     //    	Alert::error('Selected Week Ending has no result', 'FAILED!');
-     //    	return view('error');
-     //    }else{
-     //    	Alert::success('Data has been retrieved. Check Result.', 'SUCCESS!');
-     //    	return view('search.hir-result', compact('arrays'));
-     //    }
-        $query = DB::table('harvester_activities')->unique();//to be contienued
-        dd($query);
+    	$query = DB::table('harvester_activities')->where('harvester_activities.weekending', '=', $weekending)->get();
+        $unique = $query->unique('harvesters_id');
+        $unique->values()->all();
+        $arrays = $unique->toArray();
+        dd($arrays);
+
+        // if (empty($arrays)) {
+        // 	Alert::error('Selected Week Ending has no result', 'FAILED!');
+        // 	return view('error');
+        // }else{
+        // 	Alert::success('Data has been retrieved. Check Result.', 'SUCCESS!');
+        // 	return view('search.hir-result', compact('arrays'));
+        // }
+        
     }
 
     public function generateHir(Request $request){

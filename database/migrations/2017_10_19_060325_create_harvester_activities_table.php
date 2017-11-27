@@ -17,6 +17,7 @@ class CreateHarvesterActivitiesTable extends Migration
             $table->increments('id');
             $table->integer('harvesters_id')->unsigned()->index();
             $table->integer('activities_id')->unsigned()->index();
+            $table->string('weekending');
             $table->timestamps();
 
             $table->foreign('activities_id')

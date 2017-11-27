@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class HarvesterActivity extends Model
 {
-    protected $fillable = ['harvesters_id', 'harvester_activities_id'];
+    protected $fillable = ['harvesters_id', 'harvester_activities_id', 'weekending'];
 
     public function activities()
     {

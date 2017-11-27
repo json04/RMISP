@@ -24,36 +24,36 @@ class ActivityController extends Controller
     public function store(Request $request)
     {
     
-        $activity = new Activity;
-        $activity->reference = $request->Input('reference');
-        $activity->dateloaded = $request->Input('dateloaded');
-        $activity->sdt = $request->Input('sdt');
-        $activity->unitid = $request->Input('unitid');
-        $activity->groupnumber = $request->Input('groupnumber');
-        $activity->haulton = $request->Input('haulton');
-        $activity->driver = $request->Input('driver');
-        $activity->block = $request->Input('block');
-        $activity->numberofharvester = $request->Input('numberofharvester');
-        $activity->rateton = $request->Input('rateton');
-        $activity->datemilled = $request->Input('datemilled');
-        $activity->grosstons = $request->Input('grosstons');
-        $activity->trashpercentage = $request->Input('trashpercentage');
-        $activity->mill = $request->Input('mill');
-        $activity->trashtotal = $request->Input('trashtotal');
-        $activity->nettons = $request->Input('nettons');
-        $activity->sugar = $request->Input('sugar');
-        $activity->molases = $request->Input('molases');
-        $activity->dueharvesters = $request->Input('dueharvesters');
-        $activity->dueperharvesters = $request->Input('dueperharvesters');
-        $activity->duedriver = $request->Input('duedriver');
-        $activity->dueunit = $request->Input('dueunit');
-        $activity->save();
+        // $activity = new Activity;
+        // $activity->reference = $request->Input('reference');
+        // $activity->dateloaded = $request->Input('dateloaded');
+        // $activity->sdt = $request->Input('sdt');
+        // $activity->unitid = $request->Input('unitid');
+        // $activity->groupnumber = $request->Input('groupnumber');
+        // $activity->haulton = $request->Input('haulton');
+        // $activity->driver = $request->Input('driver');
+        // $activity->block = $request->Input('block');
+        // $activity->numberofharvester = $request->Input('numberofharvester');
+        // $activity->rateton = $request->Input('rateton');
+        // $activity->datemilled = $request->Input('datemilled');
+        // $activity->grosstons = $request->Input('grosstons');
+        // $activity->trashpercentage = $request->Input('trashpercentage');
+        // $activity->mill = $request->Input('mill');
+        // $activity->trashtotal = $request->Input('trashtotal');
+        // $activity->nettons = $request->Input('nettons');
+        // $activity->sugar = $request->Input('sugar');
+        // $activity->molases = $request->Input('molases');
+        // $activity->dueharvesters = $request->Input('dueharvesters');
+        // $activity->dueperharvesters = $request->Input('dueperharvesters');
+        // $activity->duedriver = $request->Input('duedriver');
+        // $activity->dueunit = $request->Input('dueunit');
+        // $activity->save();
 
-        $we = new WeekEnding;
-        $we->activities_id = $activity->id;
-        $we->weekending = $request->Input('we');
-        $we->dateloaded = $request->Input('dateloaded');
-        $we->save();
+        // $we = new WeekEnding;
+        // $we->activities_id = $activity->id;
+        // $we->weekending = $request->Input('we');
+        // $we->dateloaded = $request->Input('dateloaded');
+        // $we->save();
 
         // $dl = new DateLoaded;
         // $dl->week_endings_id = $we->id;
@@ -61,17 +61,20 @@ class ActivityController extends Controller
         // $dl->dateloaded = $request->Input('dateloaded');
         // $dl->save();
 
-        $harvest = collect($request->Input('harvesterSelect'));
-        $toArray = $harvest->toArray();
-        $result = array_filter($toArray, function($data){
-            return $data != null;
-        });
-        foreach ($result as $value) {
-            $storeHarvester = new HarvesterActivity;
-            $storeHarvester->harvesters_id = $value;
-            $storeHarvester->activities_id = $activity->id;
-            $storeHarvester->save();
-        }
+        $harvest = $request->Input('harvestersSelect');
+        // $toArrays = $harvest->toArray();
+        // $result = array_filter($toArray, function($data){
+        //     return $data != null;
+        // });
+        dd($harvest);
+        // foreach ($toArray as $value) {     
+        //     $storeHarvester = new HarvesterActivity;       
+        //     $storeHarvester->harvesters_id = $value;
+        //     $storeHarvester->activities_id = $activity->id;
+        //     $storeHarvester->weekending = $request->Input('we');
+        //     $storeHarvester->save();         
+        // }
+        
 
         Alert::success('Data have been successfully added to database!', 'Success!');
         return back()->withInput(); 

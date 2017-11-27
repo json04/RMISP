@@ -5,40 +5,41 @@
 		<div class="row">
 			<div class="col-lg-12 col-sm-12">
 				<div class="well bs-component">
-					<form class="form-horizontal" action="{{ url('/create-activity-post') }}" method="post" enctype="multipart/form-data">
-						{{ csrf_field() }}
+					<form class="form-horizontal" action="{{ url('/create-activity-post') }}" method="post" enctype="multipart/form-data" id="activityForm">
+						{{-- {!! csrf_field() !!} --}}
+						<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
+						{{-- <input type="hidden" name="harvestersSelect[]" id="harv"> --}}
 						<div class="row">
 							<div class="col-lg-12 col-sm-12">
-								<table id="harvesters" class="table table-stripped table-bordered table-hover" cellspacing="0" width="100%">
+								<table id="harvestersSelection" class="table table-stripped table-bordered table-hover" cellspacing="0" width="100%">
 									<thead>
 										<tr>
-											<th>First Name</th>
-											<th>Middle Name</th>
+											<th></th>
 											<th>Last Name</th>
-											<th>Check Box</th>
+											<th>First Name</th>
+											<th>Suffix</th>
+											<th>tok</th>
+											{{-- <th>Check Box</th> --}}
 										</tr>
 									</thead>
 									<tfoot>
 										<tr>
-											<th>First Name</th>
-											<th>Middle Name</th>
+											<th></th>
 											<th>Last Name</th>
-											<th>Check Box</th>
+											<th>First Name</th>
+											<th>Suffix</th>
+											<th>tok</th>
+											{{-- <th>Check Box</th> --}}
 										</tr>
 									</tfoot>
 									<tbody>
 										@foreach($harvesters as $harvester)
-										<tr>	
-											<td>{{ $harvester->fname }}</td>
-											<td>{{ $harvester->mname }}</td>
+										<tr>
+											<td>{{ $harvester->id }}</td>
 											<td>{{ $harvester->lname }}</td>
-											<td>
-												<div class="checkbox">
-												    <label>
-												      <input type="checkbox" name="harvesterSelect[]" value="{{ $harvester->id }}"> 
-												    </label>
-												</div>
-											</td>
+											<td>{{ $harvester->fname }}</td>
+											<td>{{ $harvester->suffix }}</td>
+											<td id="tok"></td>
 										</tr>
 										@endforeach
 									</tbody>
@@ -49,6 +50,8 @@
 					    <legend>Harvester Activity Entry</legend>
 
 					    {{-- <input type="text" class="form-control" name="activities_id" id="inputReference" value="" hidden> --}}
+
+					  {{--   <input type="text" name="harvestersSelect" id="hrvstSelect" value="" hidden>  --}}
 
 					    <div class="col-lg-4 col-sm-4">
 						    <div class="form-group">
@@ -276,8 +279,93 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
-	    $('#harvesters').DataTable();
+		var arr = new Array();
+		var secArr = new Array();
+		var tok = $("#token").val();
+		var csrf = tok;
+		console.log(csrf);
+	    var table = $('#harvestersSelection').DataTable({
+	    	columnDefs: [ {
+            orderable: false,
+            className: 'select-checkbox',
+            targets:   0
+	        } ],
+	        select: {
+	        	select: true,
+	            style:    'multi',
+	            selector: 'td:first-child'
+	        },
+	        order: [[ 1, 'asc' ]],
+		 });
+	    $(this).on( 'click', 'tr', function () {
+		    var d = table.row( this ).data();
+		    // var tok = {
+		    //     "_token": $('#token').val()
+		    // }
+		    arr = d[0];
+		    secArr.push(arr);
+		    // document.getElementById("harv").value = secArr;
+		    console.log(secArr)
+		    var form = $("#activityForm").on('submit', function(){
+				$.each(secArr, function(value){
+					// $(form).append(
+					// 	$('input').attr('type', 'text').attr('name', 'harvestersSelect[]').attr('value', '1')
+					// )
+					form.append('harvestersSelect[]', value);
+					// form.append('_token', csrf);
+					// document.getElementById("harv").value = value[0];
+					// $(form).append(
+					// 	$('input').attr('type', 'hidden').attr('name', '_token').val(csrf)
+					// )
+					console.log(value + ' ' + csrf)
+				})
+			})
+			})
 		} );
+	     
+	    // Retrieve Values
+
+	 //    $("#activityForm").on('submit', function(e){
+	 //    	var form = this
+	 //    	var rowsel = harvestersSelection.column(0).checkboxes.selected();
+	 //    	$.each(rowsel, function(index, rowId){
+	 //    		$(form).append(
+	 //    			$('<input>').attr('type', 'hidden').attr('name', 'id[]').val(rowId)
+	 //    		)
+	 //    	});
+	 //    	console.log(rowsel);
+	 //    });
+		// } );
+		// $(document).ready(function(){
+		// 	var mytable = $("#harvestersSelection").DataTable({
+		// 		ajax: 'data.json',
+		// 		columnDefs: [
+		// 			{
+		// 				orderable: false,
+		// 				className: 'select-checkbox',
+		// 				targets: 0,
+		// 				checkboxes: {
+		// 					seletRow: true
+		// 				}
+
+		// 			}
+		// 		],
+		// 		select:{
+		// 			style: 'multi'
+		// 		},
+		// 		order: [[1, 'asc']]
+		// 	})
+		// 	$("#activityForm").on('submit', function(e){
+		// 		var form = this;
+		// 		var rowsel = mytable.column(0).checkboxes.selected();
+		// 		$.each(rowsel, function(index, rowId){
+		// 			$(form).append(
+		// 				$('<input>').attr('type', 'hidden').attr('name', 'id[]').val(rowId)
+		// 			);
+		// 		});
+		// 		console.log(rowsel);
+		// 	});
+		// });
 	</script>
 
 	{{-- Auto Calculation --}}

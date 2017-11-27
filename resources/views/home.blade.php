@@ -64,7 +64,7 @@
                     </tfoot>
                     <tbody>
                         @foreach($harvesters as $harvester)
-                        <tr>    
+                        <tr> 
                             <td>{{ $harvester->lname }}</td>
                             <td>{{ $harvester->fname }}</td>
                             <td>{{ $harvester->suffix }}</td>
