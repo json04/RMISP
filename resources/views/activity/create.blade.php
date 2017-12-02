@@ -8,7 +8,7 @@
 					<form class="form-horizontal" action="{{ url('/create-activity-post') }}" method="post" enctype="multipart/form-data" id="activityForm">
 						{{-- {!! csrf_field() !!} --}}
 						<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
-						{{-- <input type="hidden" name="harvestersSelect[]" id="harv"> --}}
+						<input type="hidden" name="harvestersSelect[]" id="harv">
 						<div class="row">
 							<div class="col-lg-12 col-sm-12">
 								<table id="harvestersSelection" class="table table-stripped table-bordered table-hover" cellspacing="0" width="100%">
@@ -280,10 +280,11 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 		var arr = new Array();
-		var secArr = new Array();
+		var secArr = [];
 		var tok = $("#token").val();
 		var csrf = tok;
 		console.log(csrf);
+
 	    var table = $('#harvestersSelection').DataTable({
 	    	columnDefs: [ {
             orderable: false,
@@ -293,7 +294,7 @@
 	        select: {
 	        	select: true,
 	            style:    'multi',
-	            selector: 'td:first-child'
+	            // selector: 'td:first-child'
 	        },
 	        order: [[ 1, 'asc' ]],
 		 });
@@ -305,23 +306,30 @@
 		    arr = d[0];
 		    secArr.push(arr);
 		    // document.getElementById("harv").value = secArr;
-		    console.log(secArr)
-		    var form = $("#activityForm").on('submit', function(){
-				$.each(secArr, function(value){
-					// $(form).append(
-					// 	$('input').attr('type', 'text').attr('name', 'harvestersSelect[]').attr('value', '1')
-					// )
-					form.append('harvestersSelect[]', value);
-					// form.append('_token', csrf);
-					// document.getElementById("harv").value = value[0];
-					// $(form).append(
-					// 	$('input').attr('type', 'hidden').attr('name', '_token').val(csrf)
-					// )
-					console.log(value + ' ' + csrf)
-				})
+		    var tojson = JSON.stringify(secArr);
+		    document.getElementById("harv").value = tojson;
+		 //    var unique = tojson.filter()
+			// console.log(unique);
+
+		    
+		 //    var form = $("#activityForm").on('submit', function(){
+		 //    	document.getElementById("harv").value = tojson;
+			// 	// $.each(secArr, function(value){
+			// 	// 	// $(form).append(
+			// 	// 	// 	$('input').attr('type', 'text').attr('name', 'harvestersSelect[]').attr('value', '1')
+			// 	// 	// )
+			// 	// 	// form.append('harvestersSelect[]', value);
+			// 	// 	JSON.stringify()
+			// 	// 	// form.append('_token', csrf);
+			// 	// 	// document.getElementById("harv").value = value[0];
+			// 	// 	// $(form).append(
+			// 	// 	// 	$('input').attr('type', 'hidden').attr('name', '_token').val(csrf)
+			// 	// 	// )
+			// 	// 	console.log(value + ' ' + csrf)
+			// 	// })
+			// })
 			})
-			})
-		} );
+		});
 	     
 	    // Retrieve Values
 

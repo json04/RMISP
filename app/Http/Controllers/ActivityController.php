@@ -62,17 +62,21 @@ class ActivityController extends Controller
         // $dl->save();
 
         $harvest = $request->Input('harvestersSelect');
-        // $toArrays = $harvest->toArray();
+        $str = str_replace('"', '', $harvest);
+        $dec = json_decode($str[0]);
+       
+        // $toArray = $dec->toArray();
         // $result = array_filter($toArray, function($data){
         //     return $data != null;
         // });
-        dd($harvest);
-        // foreach ($toArray as $value) {     
+        dd($dec);
+        // foreach ($dec as $value) {     
         //     $storeHarvester = new HarvesterActivity;       
         //     $storeHarvester->harvesters_id = $value;
         //     $storeHarvester->activities_id = $activity->id;
         //     $storeHarvester->weekending = $request->Input('we');
-        //     $storeHarvester->save();         
+        //     $storeHarvester->save();   
+        //     // dd($dec);      
         // }
         
 
