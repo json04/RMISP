@@ -18,8 +18,6 @@
 											<th>Last Name</th>
 											<th>First Name</th>
 											<th>Suffix</th>
-											<th>tok</th>
-											{{-- <th>Check Box</th> --}}
 										</tr>
 									</thead>
 									<tfoot>
@@ -28,8 +26,6 @@
 											<th>Last Name</th>
 											<th>First Name</th>
 											<th>Suffix</th>
-											<th>tok</th>
-											{{-- <th>Check Box</th> --}}
 										</tr>
 									</tfoot>
 									<tbody>
@@ -39,7 +35,6 @@
 											<td>{{ $harvester->lname }}</td>
 											<td>{{ $harvester->fname }}</td>
 											<td>{{ $harvester->suffix }}</td>
-											<td id="tok"></td>
 										</tr>
 										@endforeach
 									</tbody>
@@ -109,7 +104,7 @@
 
 						<div class="col-lg-4 col-sm-4">
 						    <div class="form-group">
-						      <label for="inputHAULTON" class="col-lg-4 control-label" style="color: red;">(1)Haul/Ton</label>
+						      <label for="inputHAULTON" class="col-lg-4 control-label" style="color: yellow;">(1)Haul/Ton</label>
 						      <div class="col-lg-8">
 						        <input type="text" class="form-control" name="haulton" id="inputHAULTON" placeholder="Haul/Ton">
 						      </div>
@@ -136,7 +131,7 @@
 
 						<div class="col-lg-4 col-sm-4">
 						    <div class="form-group">
-						      <label for="inputNUMBEROFHARVESTER" class="col-lg-4 control-label" style="color: red;">(2)Number of Harvester</label>
+						      <label for="inputNUMBEROFHARVESTER" class="col-lg-4 control-label" style="color: yellow;">(2)Number of Harvester</label>
 						      <div class="col-lg-8">
 						        <input type="text" class="form-control" name="numberofharvester" id="inputNUMBEROFHARVESTER" placeholder="Number of Harvester">
 						      </div>
@@ -145,7 +140,7 @@
 
 						<div class="col-lg-4 col-sm-4">
 						    <div class="form-group">
-						      <label for="inputRATETON" class="col-lg-4 control-label" style="color: red;">(3)Rate/Ton</label>
+						      <label for="inputRATETON" class="col-lg-4 control-label" style="color: yellow;">(3)Rate/Ton</label>
 						      <div class="col-lg-8">
 						        <input type="text" class="form-control" name="rateton" id="inputRATETON" placeholder="Rate/Ton">
 						      </div>
@@ -163,7 +158,7 @@
 
 						<div class="col-lg-4 col-sm-4">
 						    <div class="form-group">
-						      <label for="inputGROSSTONS" class="col-lg-4 control-label" style="color: red;">(4)Gross Tons</label>
+						      <label for="inputGROSSTONS" class="col-lg-4 control-label" style="color: yellow;">(4)Gross Tons</label>
 						      <div class="col-lg-8">
 						        <input type="text" class="form-control" name="grosstons" id="inputGROSSTONS" placeholder="Gross Tons">
 						      </div>
@@ -172,7 +167,7 @@
 
 						<div class="col-lg-4 col-sm-4">
 						    <div class="form-group">
-						      <label for="inputTRASHPERCENTAGE" class="col-lg-4 control-label" style="color: red;">(5)Trash %</label>
+						      <label for="inputTRASHPERCENTAGE" class="col-lg-4 control-label" style="color: yellow;">(5)Trash %</label>
 						      <div class="col-lg-8">
 						        <input type="text" class="form-control" name="trashpercentage" id="inputTRASHPERCENTAGE" placeholder="Trash %">
 						      </div>
@@ -300,80 +295,17 @@
 		 });
 	    $(this).on( 'click', 'tr', function () {
 		    var d = table.row( this ).data();
-		    // var tok = {
-		    //     "_token": $('#token').val()
-		    // }
 		    arr = d[0];
 		    secArr.push(arr);
-		    // document.getElementById("harv").value = secArr;
-		    var tojson = JSON.stringify(secArr);
+		    //note: needed to fix remove unchecked box from array
+		    var unique = secArr.filter(function(elem, index, self) {
+		    return index === self.indexOf(elem);
+			});
+			var tojson = JSON.stringify(unique);
+			console.log(tojson);
 		    document.getElementById("harv").value = tojson;
-		 //    var unique = tojson.filter()
-			// console.log(unique);
-
-		    
-		 //    var form = $("#activityForm").on('submit', function(){
-		 //    	document.getElementById("harv").value = tojson;
-			// 	// $.each(secArr, function(value){
-			// 	// 	// $(form).append(
-			// 	// 	// 	$('input').attr('type', 'text').attr('name', 'harvestersSelect[]').attr('value', '1')
-			// 	// 	// )
-			// 	// 	// form.append('harvestersSelect[]', value);
-			// 	// 	JSON.stringify()
-			// 	// 	// form.append('_token', csrf);
-			// 	// 	// document.getElementById("harv").value = value[0];
-			// 	// 	// $(form).append(
-			// 	// 	// 	$('input').attr('type', 'hidden').attr('name', '_token').val(csrf)
-			// 	// 	// )
-			// 	// 	console.log(value + ' ' + csrf)
-			// 	// })
-			// })
 			})
 		});
-	     
-	    // Retrieve Values
-
-	 //    $("#activityForm").on('submit', function(e){
-	 //    	var form = this
-	 //    	var rowsel = harvestersSelection.column(0).checkboxes.selected();
-	 //    	$.each(rowsel, function(index, rowId){
-	 //    		$(form).append(
-	 //    			$('<input>').attr('type', 'hidden').attr('name', 'id[]').val(rowId)
-	 //    		)
-	 //    	});
-	 //    	console.log(rowsel);
-	 //    });
-		// } );
-		// $(document).ready(function(){
-		// 	var mytable = $("#harvestersSelection").DataTable({
-		// 		ajax: 'data.json',
-		// 		columnDefs: [
-		// 			{
-		// 				orderable: false,
-		// 				className: 'select-checkbox',
-		// 				targets: 0,
-		// 				checkboxes: {
-		// 					seletRow: true
-		// 				}
-
-		// 			}
-		// 		],
-		// 		select:{
-		// 			style: 'multi'
-		// 		},
-		// 		order: [[1, 'asc']]
-		// 	})
-		// 	$("#activityForm").on('submit', function(e){
-		// 		var form = this;
-		// 		var rowsel = mytable.column(0).checkboxes.selected();
-		// 		$.each(rowsel, function(index, rowId){
-		// 			$(form).append(
-		// 				$('<input>').attr('type', 'hidden').attr('name', 'id[]').val(rowId)
-		// 			);
-		// 		});
-		// 		console.log(rowsel);
-		// 	});
-		// });
 	</script>
 
 	{{-- Auto Calculation --}}
@@ -440,6 +372,4 @@
 	    });
 	  } );
 	</script>
-
-
 @endsection
