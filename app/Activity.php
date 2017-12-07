@@ -3,6 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\HarvesterActivity;
+use App\WeekEnding;
+
 
 class Activity extends Model
 {

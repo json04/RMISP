@@ -30,7 +30,7 @@
                             <td>{{ $activity->groupnumber }}</td>
                             <td>{{ $activity->driver }}</td>
                             <td>
-                                <a type="button" class="btn btn-xs btn-primary" href="/rmisp/public/view/{{$activity->id}}">
+                                <a type="button" class="btn btn-xs btn-primary" href="{{ url("/rmisp/public/view/$activity->id") }}">
                                     <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View
                                 </a>
                             </td>

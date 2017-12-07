@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Harvester;
+use App\Activity;
 
 class HarvesterActivity extends Model
 {

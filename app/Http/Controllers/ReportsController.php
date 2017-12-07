@@ -18,31 +18,30 @@ class ReportsController extends Controller
 
     public function searchHir(Request $request){
     	$weekending = $request->Input('weekending');
-    	$query = DB::table('harvester_activities')->where('harvester_activities.weekending', '=', $weekending)->get();
+    	$query = DB::table('harvester_activities')->where('harvester_activities.weekending', '=', $weekending)
+            ->leftjoin('harvesters', 'harvesters_id', '=', 'harvesters.id')
+            ->leftjoin('activities', 'activities_id', '=', 'activities.id')->get();
         $unique = $query->unique('harvesters_id');
         $unique->values()->all();
         $arrays = $unique->toArray();
-        dd($arrays);
-
-        // if (empty($arrays)) {
-        // 	Alert::error('Selected Week Ending has no result', 'FAILED!');
-        // 	return view('error');
-        // }else{
-        // 	Alert::success('Data has been retrieved. Check Result.', 'SUCCESS!');
-        // 	return view('search.hir-result', compact('arrays'));
-        // }
+        $we = $weekending;
+        if (empty($arrays)) {
+        	Alert::error('Selected Week Ending has no result', 'FAILED!');
+        	return view('error');
+        }else{
+        	Alert::success('Data has been retrieved. Check Result.', 'SUCCESS!');
+        	return view('search.hir-result', compact('arrays', 'we'));
+        }
         
     }
 
     public function generateHir(Request $request){
-        $harvest = collect($request->Input('harvesterSelect'));
-        $toArray = $harvest->toArray();
-        $results = array_filter($toArray, function($data){
-            return $data != null;
-        });
-
-       $queries = DB::table('harvesters')->whereIn('harvesters.id', $results)
-       ->leftjoin('harvester_activities', 'harvesters.id', '=', 'harvester_activities.harvesters_id')
+        $harvest = $request->Input('harvestersSelect');
+        $str = str_replace('"', '', $harvest);
+        $dec = json_decode($str[0]);
+        $weekending = $request->Input('we');
+       $queries = DB::table('harvesters')->whereIn('harvesters.id', $dec)
+       ->leftjoin('harvester_activities', 'harvesters.id', '=', 'harvester_activities.harvesters_id', 'harvester_activities.weekending', '=', $weekending)
        ->leftjoin('activities', 'harvester_activities.activities_id', '=', 'activities.id')->get();
         dd($queries);
     }

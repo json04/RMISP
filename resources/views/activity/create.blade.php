@@ -31,7 +31,7 @@
 									<tbody>
 										@foreach($harvesters as $harvester)
 										<tr>
-											<td>{{ $harvester->id }}</td>
+											<td>{{-- <input type="checkbox" id="harvSel" name="select" value="{{ $harvester->id }}"> --}}{{ $harvester->id }}</td>
 											<td>{{ $harvester->lname }}</td>
 											<td>{{ $harvester->fname }}</td>
 											<td>{{ $harvester->suffix }}</td>
@@ -278,7 +278,19 @@
 		var secArr = [];
 		var tok = $("#token").val();
 		var csrf = tok;
+		var values = [];
 		console.log(csrf);
+
+		// var table = $('#harvestersSelection').DataTable();
+		// $(':checkbox[name=select]').on('change', function() {
+		//     var assignedTo = $(':checkbox[name=select]:checked').map(function() {
+		//         return this.value;
+		//     })
+		//     .get();
+		//     var tojson = JSON.stringify(assignedTo);
+		//     document.getElementById("harv").value = tojson;
+		//     console.log(tojson);
+		// });
 
 	    var table = $('#harvestersSelection').DataTable({
 	    	columnDefs: [ {
@@ -289,11 +301,12 @@
 	        select: {
 	        	select: true,
 	            style:    'multi',
-	            // selector: 'td:first-child'
+	            selector: 'td:first-child'
 	        },
 	        order: [[ 1, 'asc' ]],
-		 });
+		});
 	    $(this).on( 'click', 'tr', function () {
+		    values = [];
 		    var d = table.row( this ).data();
 		    arr = d[0];
 		    secArr.push(arr);
@@ -302,9 +315,8 @@
 		    return index === self.indexOf(elem);
 			});
 			var tojson = JSON.stringify(unique);
-			console.log(tojson);
 		    document.getElementById("harv").value = tojson;
-			})
+		})
 		});
 	</script>
 
