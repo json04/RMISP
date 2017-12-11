@@ -40,9 +40,12 @@ class ReportsController extends Controller
         $str = str_replace('"', '', $harvest);
         $dec = json_decode($str[0]);
         $weekending = $request->Input('we');
-       $queries = DB::table('harvesters')->whereIn('harvesters.id', $dec)
-       ->leftjoin('harvester_activities', 'harvesters.id', '=', 'harvester_activities.harvesters_id', 'harvester_activities.weekending', '=', $weekending)
-       ->leftjoin('activities', 'harvester_activities.activities_id', '=', 'activities.id')->get();
-        dd($queries);
+        $activities = DB::table('harvester_activities')->whereIn('harvester_activities.harvesters_id', $dec)->where('harvester_activities.weekending', $weekending)
+        ->leftjoin('activities', 'harvester_activities.activities_id', '=', 'activities.id')
+        ->leftjoin('harvesters', 'harvester_activities.harvesters_id', '=', 'harvesters.id')->get();
+        
+        $names = $activities->unique('lname', 'fname', 'suffix');
+        // dd($activities);
+        return view('reports.hir_results', compact('names', 'activities'));
     }
 }

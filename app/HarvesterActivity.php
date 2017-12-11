@@ -17,6 +17,6 @@ class HarvesterActivity extends Model
 
     public function harvesters()
     {
-    	return $this->belongsTo('App\Harvester');
+    	return $this->hasMany('App\Harvester', 'foreign_key');
     }
 }

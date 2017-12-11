@@ -13,6 +13,6 @@ class Harvester extends Model
 
     public function harvesteractivities()
     {
-    	return $this->hasMany('App\HarvesterActivity');
+    	return $this->hasOne('App\HarvesterActivity', 'foreign_key');
     }
 }
