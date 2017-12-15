@@ -40,12 +40,39 @@ class ReportsController extends Controller
         $str = str_replace('"', '', $harvest);
         $dec = json_decode($str[0]);
         $weekending = $request->Input('we');
-        $activities = DB::table('harvester_activities')->whereIn('harvester_activities.harvesters_id', $dec)->where('harvester_activities.weekending', $weekending)
+        $query = DB::table('harvester_activities')->whereIn('harvester_activities.harvesters_id', $dec)->where('harvester_activities.weekending', $weekending)
         ->leftjoin('activities', 'harvester_activities.activities_id', '=', 'activities.id')
         ->leftjoin('harvesters', 'harvester_activities.harvesters_id', '=', 'harvesters.id')->get();
+        // $grouped = $query->groupBy('id');
+        // $activities = json_decode(json_encode($grouped), true);
+        // return view('reports.hir_results', compact('activities'));
+        $arr = [
+            [
+                [ 
+                    "id" => 1,
+                    "name" => "Jayson"
+                ],
+                [
+                    "id" => 1,
+                    "name" => "Jimmy"
+                ]
+            ],
+            [
+                "id" => 2,
+                "name" => "Joymae"
+            ],
+            [
+                "id" => 3,
+                "name" => "Jasper"
+            ]
+        ];
+
+        foreach ($arr as $key => $value) {
+            foreach ($value as $key => $data) {
+                print_r($key);
+            }
+        }
         
-        $names = $activities->unique('lname', 'fname', 'suffix');
-        // dd($activities);
-        return view('reports.hir_results', compact('names', 'activities'));
+
     }
 }

@@ -3,8 +3,8 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
-				@foreach($names as $name)
-					<h5 align="center"><?php  echo $name->lname, ', ', substr($name->fname, 0, 1), '.'; ?></h5>
+				@foreach($activities as $key => $value)		
+					{{-- <h5 align="center"><?php  echo $value->lname, ', ', substr($value->fname, 0, 1), '.'; ?></h5> --}}
 					<table class="table table-stripped table-bordered" cellspacing="0" width="100%">
 						<thead>
 							<tr>
@@ -33,9 +33,19 @@
 							</tr>
 						</tfoot>
 						<tbody>
-							@foreach($activities as $value)
+							@foreach($value as $key => $data)				
 							<tr>
-								<td>{{ $value->dateloaded }}</td>
+								@foreach($value as $data)
+								<td>{{ $data->dateloaded }}</td>
+								<td>{{ $data->sdt }}</td>
+								<td>{{ $data->unitid }}</td>
+								<td>{{ $data->numberofharvester }}</td>
+								<td>{{ $data->grosstons }}</td>
+								<td>{{ $data->trashtotal }}</td>
+								<td>{{ $data->nettons }}</td>
+								<td>{{ $data->rateton }}</td>
+								<td>{{ $data->dueperharvesters }}</td>
+								@endforeach
 							</tr>
 							@endforeach
 						</tbody>
