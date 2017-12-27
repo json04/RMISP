@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\HarvesterActivity;
+use App\Activity_Harvester_WeekEnding;
 
 class Harvester extends Model
 {
@@ -11,8 +11,7 @@ class Harvester extends Model
         'fname', 'mname', 'lname', 'suffix', 'address', 'contact',
     ];
 
-    public function harvesteractivities()
-    {
-    	return $this->hasOne('App\HarvesterActivity', 'foreign_key');
+    public function activitiesHarvestersWeekendings(){
+        return $this->belongsTo('App\Activity_Harvester_WeekEnding');
     }
 }

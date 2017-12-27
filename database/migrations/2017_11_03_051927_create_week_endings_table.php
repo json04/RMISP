@@ -15,15 +15,8 @@ class CreateWeekEndingsTable extends Migration
     {
         Schema::create('week_endings', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('activities_id')->unsigned()->index();
             $table->string('weekending');
-            $table->string('dateloaded');
             $table->timestamps();
-
-            $table->foreign('activities_id')
-                ->references('id')
-                ->on('activities')
-                ->onDelete('cascade');
         });
     }
 

@@ -3,8 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\HarvesterActivity;
-use App\WeekEnding;
+use App\Activity_Harvester_WeekEnding;
 
 
 class Activity extends Model
@@ -20,14 +19,7 @@ class Activity extends Model
     	'duedriver', 'dueunit',
     ]; 
 
-    public function harvesteractivities() 
-    {
-    	return $this->hasMany('App\HarvesterActivity');
+    public function activitiesHarvestersWeekendings(){
+        return $this->belongsTo('App\Activity_Harvester_WeekEnding');
     }
-
-    public function weekendings()
-    {
-        return $this->hasMany('App\WeekEnding');
-    }
-
 }

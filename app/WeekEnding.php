@@ -3,15 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Activity;
+use App\Activity_Harvester_WeekEnding;
 
 class WeekEnding extends Model
 {
-    protected $fillable = ['activities_id', 'weekending'];
+    protected $fillable = ['weekending'];
 
-    public function activities()
-    {
-    	return $this->belongsTo('App\Activity', 'foreign_key');
+    public function activitiesHarvestersWeekendings(){
+        return $this->belongsTo('App\Activity_Harvester_WeekEnding');
     }
-
 }
