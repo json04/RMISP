@@ -44,35 +44,41 @@ class ReportsController extends Controller
         ->leftjoin('activities', 'harvester_activities.activities_id', '=', 'activities.id')
         ->leftjoin('harvesters', 'harvester_activities.harvesters_id', '=', 'harvesters.id')->get();
         // $grouped = $query->groupBy('id');
-        // $activities = json_decode(json_encode($grouped), true);
-        // return view('reports.hir_results', compact('activities'));
-        $arr = [
-            [
-                [ 
-                    "id" => 1,
-                    "name" => "Jayson"
-                ],
-                [
-                    "id" => 1,
-                    "name" => "Jimmy"
-                ]
-            ],
-            [
-                "id" => 2,
-                "name" => "Joymae"
-            ],
-            [
-                "id" => 3,
-                "name" => "Jasper"
-            ]
-        ];
-
-        foreach ($arr as $key => $value) {
-            foreach ($value as $key => $data) {
-                print_r($key);
-            }
-        }
+        // $activities = $query->toArray();
+        $json = json_decode($query, true);
+        // foreach ($activities as $x => $value) {
+        //     if ($value->id != $value->id) {
+        //         echo "not equal";
+        //     }else{
+        //         echo "Equal";
+        //     }
+        // }
         
+        // $arr = [
+        //     [
+        //         "id" => 1,
+        //         "name" => "Jayson"
+        //     ],
+        //     [
+        //         "id" => 3,
+        //         "name" => "Jasper"
+        //     ],
+        //     [
+        //         "id" => 1,
+        //         "name" => "Jimmy"
+        //     ],
+        //     [
+        //         "id" => 2,
+        //         "name" => "Joymae"
+        //     ]
+        // ];
 
+        //sorting array id in order
+        $activities = array_values(array_sort($json, function ($value) {
+            return $value['id'];
+        }));
+        // dd($activities);
+
+        return view('reports.hir_results', compact('activities')); 
     }
 }
