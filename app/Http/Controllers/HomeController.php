@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Harvester;
 use App\Activity;
-use App\HarvesterActivity;
+use App\Activity_Harvester_WeekEnding as Pivot;
 use App\WeekEnding;
 use DB;
 use Alert;
@@ -36,8 +36,9 @@ class HomeController extends Controller
     public function retrieve($id)
     {
         $activities = Activity::findOrFail($id);
-        $queries = DB::table('activities')
-            ->leftJoin('week_endings', 'activities.id', '=', 'week_endings.activities_id')->where('activities.id', '=', $id)->get();
-        return view('search.view-activity-results', compact('activities', 'queries'));
+        $weekendings = WeekEnding::findOrFail($id);
+        $weekendings->activitiesHarvestersWeekendings()->where('id', $id)->get();
+        $activities->activitiesHarvestersWeekendings()->where('id', $id)->get();
+        return view('search.view-activity-results', compact('activities', 'weekendings'));
     }
 }

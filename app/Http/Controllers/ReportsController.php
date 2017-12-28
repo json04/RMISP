@@ -18,12 +18,8 @@ class ReportsController extends Controller
 
     public function searchHir(Request $request){
     	$weekending = $request->Input('weekending');
-    	// $query = DB::table('harvester_activities')->where('harvester_activities.weekending', '=', $weekending)
-     //        ->leftjoin('harvesters', 'harvesters_id', '=', 'harvesters.id')
-     //        ->leftjoin('activities', 'activities_id', '=', 'activities.id')->get();
-
-        // $query = Pivot::all();
-        // $query->weekendings()->where()
+        $pivot = Pivot::with('weekendings')->where('week_endings_id', 1)->get();
+        dd($pivot);
         // $unique = $query->unique('harvesters_id');
         // $unique->values()->all();
         // $arrays = $unique->toArray();
