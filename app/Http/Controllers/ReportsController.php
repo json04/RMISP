@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Harvester;
 use App\Activity;
-use App\Activity_Harvester_WeekEnding as Pivot;
+use App\ActivityWeekending as Pivot;
 use App\WeekEnding;
 use DB;
 use Alert;
@@ -17,9 +17,9 @@ class ReportsController extends Controller
     }
 
     public function searchHir(Request $request){
-    	$weekending = $request->Input('weekending');
-        $pivot = Pivot::with('weekendings')->where('week_endings_id', 1)->get();
-        dd($pivot);
+    	$input = $request->Input('weekending');
+        $weekending = WeekEnding::where('weekending', $input)->with('activities')->get();
+        dd($weekending);
         // $unique = $query->unique('harvesters_id');
         // $unique->values()->all();
         // $arrays = $unique->toArray();

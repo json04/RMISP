@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Harvester;
-use App\Activity_Harvester_WeekEnding as Pivot;
+use App\ActivityWeekEnding as Pivot;
 use App\Activity;
 use App\WeekEnding;
 use App\DateLoaded;
@@ -53,16 +53,15 @@ class ActivityController extends Controller
         $we->weekending = $request->Input('we');
         $we->save();
 
-
         $harvest = $request->Input('harvestersSelect');
         $str = str_replace('"', '', $harvest);
         $dec = json_decode($str[0]);
     
         foreach ($dec as $value) {     
             $storeHarvester = new Pivot;       
-            $storeHarvester->harvesters_id = $value;
             $storeHarvester->activities_id = $activity->id;
             $storeHarvester->week_endings_id = $we->id;
+            $storeHarvester->harvesters_id = $value;
             $storeHarvester->save();      
         }
         
