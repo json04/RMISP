@@ -1,0 +1,6 @@
+Database normalization 
+	- Harvester should be the Parent Node.
+	- Child Nodes should have the connection/foreign to the parent node. 
+	- Models/Eloquent relationships/public functions must be connected to the Parent Model.
+Search Method
+	- Should retrieve all the posible information using the weekending input 

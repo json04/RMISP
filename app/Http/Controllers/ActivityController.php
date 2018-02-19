@@ -66,7 +66,7 @@ class ActivityController extends Controller
         }
         
 
-        Alert::success('Data have been successfully added to database!', 'Success!');
+        Alert::success('Data has been successfully added to database!', 'Success!');
         return back()->withInput(); 
     }
 }

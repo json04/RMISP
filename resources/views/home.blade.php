@@ -51,7 +51,7 @@
                             <th>Last Name</th>
                             <th>First Name</th>
                             <th>Suffix</th>
-                            <th>Action</th>
+                            {{-- <th>Action</th> --}}
                         </tr>
                     </thead>
                     <tfoot>
@@ -59,7 +59,7 @@
                             <th>Last Name</th>
                             <th>First Name</th>
                             <th>Suffix</th>
-                            <th>Action</th>
+                           {{--  <th>Action</th> --}}
                         </tr>
                     </tfoot>
                     <tbody>
@@ -68,9 +68,9 @@
                             <td>{{ $harvester->lname }}</td>
                             <td>{{ $harvester->fname }}</td>
                             <td>{{ $harvester->suffix }}</td>
-                            <td>
+                            {{-- <td>
                                 Edit(under construction)
-                            </td>
+                            </td> --}}
                         </tr>
                         @endforeach
                     </tbody>

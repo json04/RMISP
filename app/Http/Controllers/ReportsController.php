@@ -18,7 +18,8 @@ class ReportsController extends Controller
 
     public function searchHir(Request $request){
     	$input = $request->Input('weekending');
-        $weekending = WeekEnding::where('weekending', $input)->with('activities')->get();
+        // query should retrieve all posible information using the selected weekending input. 
+        $weekending = WeekEnding::where('weekending', $input)->with('activities')->get(); 
         dd($weekending);
         // $unique = $query->unique('harvesters_id');
         // $unique->values()->all();
