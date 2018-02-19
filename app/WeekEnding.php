@@ -9,9 +9,7 @@ class WeekEnding extends Model
 {
     protected $fillable = ['weekending'];
 
-    //each weekending has many activities 
-    //define pivot table
-    public function activities() {
-    	return $this->hasMany('App\Activity', 'activity_weekendings', 'week_endings_id', 'activities_id', 'harvesters_id');
+    public function harvesters(){
+        return $this->beloongsTo('App\Harvester');
     }
 }

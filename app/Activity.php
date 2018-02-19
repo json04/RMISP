@@ -18,14 +18,8 @@ class Activity extends Model
     	'duedriver', 'dueunit',
     ]; 
 
-    // each activity has many Harvesters
-    public function harvesters() {
-        return $this->hasMany('App\Harvester');
-    }
-
-    //each acitiviy belongs to one weekending 
-    // define our pivot table
-    public function weekendings() {
-        return $this->belongsTo('App\Weekending', 'activity_weekendings', 'activities_id', 'week_endings_id', 'harvesters_id');
+    // this child node must belong to the parent node using "belongsTo" method.
+    public function harvesters(){
+        return $this->beloongsTo('App\Harvester');
     }
 }
