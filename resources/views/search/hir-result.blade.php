@@ -16,8 +16,8 @@
 							<tr>
 								<th>ID</th>
 								<th>Last Name</th>
-								<th>First Name</th>
-								<th>Suffix</th>
+								{{-- <th>First Name</th>
+								<th>Suffix</th> --}}
 								{{-- <th>Date Loaded</th> --}}
 							</tr>
 						</thead>
@@ -25,18 +25,18 @@
 							<tr>
 								<th>Harvester ID</th>
 								<th>Last Name</th>
-								<th>First Name</th>
-								<th>Suffix</th>
+								{{-- <th>First Name</th>
+								<th>Suffix</th> --}}
 								{{-- <th>Date Loaded</th> --}}
 							</tr>
 						</tfoot>
 						<tbody>
-							@foreach($arrays as $data)
+							@foreach($uniques as $data)
 							<tr>	
-								<td>{{ $data->harvesters_id }}</td>				
-								<td>{{ $data->lname }}</td>
-								<td>{{ $data->fname }}</td>
-								<td>{{ $data->suffix }}</td>
+								<td>{{ $data->week_ending }}</td>				
+								<td>{{ $data->activities->unitid }}</td>
+								{{-- <td>{{ $data->fname }}</td>
+								<td>{{ $data->suffix }}</td> --}}
 								{{-- <td>{{ $data->dateloaded }}</td> --}}
 								{{-- <td align="center">
 									<div class="checkbox">
