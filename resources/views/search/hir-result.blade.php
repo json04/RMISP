@@ -10,7 +10,7 @@
 				<form action="{{ url('/generate-week-ending-hir-excel') }}" method="post" style="margin-top: 5em;">
 					<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
 					<input type="hidden" name="harvestersSelect[]" id="harv">
-					<input type="hidden" name="we" value="{{$we}}">
+					{{-- <input type="hidden" name="we" value="{{$we}}"> --}}
 					<table id="harvesterSelect" class="table table-stripped table-bordered table-hover" cellspacing="0" width="100%">
 						<thead>
 							<tr>

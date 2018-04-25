@@ -16,7 +16,8 @@ class CreateActivityWeekendingsTable extends Migration
         Schema::create('activity_weekendings', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('activities_id')->unsigned()->index();
-            $table->integer('week_endings_id')->unsigned()->index();
+            // $table->integer('week_endings_id')->unsigned()->index();
+            $table->string('week_ending');
             $table->integer('harvesters_id')->unsigned()->index();
             $table->timestamps();
 
@@ -25,10 +26,10 @@ class CreateActivityWeekendingsTable extends Migration
                 ->on('activities')
                 ->onDelete('cascade');
 
-            $table->foreign('week_endings_id')
-                ->references('id')
-                ->on('week_endings')
-                ->onDelete('cascade');
+            // $table->foreign('week_endings_id')
+            //     ->references('id')
+            //     ->on('week_endings')
+            //     ->onDelete('cascade');
 
             $table->foreign('harvesters_id')
                 ->references('id')

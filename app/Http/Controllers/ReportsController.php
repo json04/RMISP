@@ -19,23 +19,17 @@ class ReportsController extends Controller
     public function searchHir(Request $request){
     	$input = $request->Input('weekending');
         // query should retrieve all posible information using the selected weekending input. 
-        $weekending = WeekEnding::where('weekending', $input)->get()->toArray();
-        $activities = array_values(array_sort($weekending, function ($value) {
-            return $value['id'];
-        }));
-        dd($activities);
-        // $unique = $query->unique('harvesters_id');
-        // $unique->values()->all();
-        // $arrays = $unique->toArray();
-        // $we = $weekending;
+        $weekending = Pivot::where('week_ending', $input)->with('activities', 'harvesters')->get();
+        // $arrays = array_values(array_sort($weekending, function ($value) {
+        //     return $value['id'];
+        // }));
         // if (empty($arrays)) {
         // 	Alert::error('Selected Week Ending has no result', 'FAILED!');
         // 	return view('error');
         // }else{
         // 	Alert::success('Data has been retrieved. Check Result.', 'SUCCESS!');
-        // 	return view('search.hir-result', compact('arrays', 'we'));
+        // 	return view('search.hir-result', compact('arrays'));
         // }
-        
     }
 
     public function generateHir(Request $request){

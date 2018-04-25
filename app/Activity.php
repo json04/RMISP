@@ -3,8 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\WeekEnding;
-use App\Harvester;
+use App\ActivityWeekending;
 
 class Activity extends Model
 {
@@ -18,8 +17,7 @@ class Activity extends Model
     	'duedriver', 'dueunit',
     ]; 
 
-    // this child node must belong to the parent node using "belongsTo" method.
-    public function harvesters(){
-        return $this->beloongsTo('App\Harvester');
+    public function activityweekendings(){
+        return $this->hasMany('App\ActivityWeekending');
     }
 }

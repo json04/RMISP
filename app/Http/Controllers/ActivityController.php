@@ -49,9 +49,9 @@ class ActivityController extends Controller
         $activity->dueunit = $request->Input('dueunit');
         $activity->save();
 
-        $we = new WeekEnding;
-        $we->weekending = $request->Input('we');
-        $we->save();
+        // $we = new WeekEnding;
+        // $we->weekending = $request->Input('we');
+        // $we->save();
 
         $harvest = $request->Input('harvestersSelect');
         $str = str_replace('"', '', $harvest);
@@ -60,7 +60,7 @@ class ActivityController extends Controller
         foreach ($dec as $value) {     
             $storeHarvester = new Pivot;       
             $storeHarvester->activities_id = $activity->id;
-            $storeHarvester->week_endings_id = $we->id;
+            $storeHarvester->week_ending = $request->Input('we');
             $storeHarvester->harvesters_id = $value;
             $storeHarvester->save();      
         }
