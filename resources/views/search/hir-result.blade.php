@@ -31,7 +31,7 @@
 							</tr>
 						</tfoot>
 						<tbody>
-							@foreach($uniques as $data)
+							@foreach($arrays as $data)
 							<tr>	
 								<td>{{ $data->week_ending }}</td>				
 								<td>{{ $data->activities->unitid }}</td>

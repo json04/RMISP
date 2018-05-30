@@ -21,8 +21,11 @@ class ReportsController extends Controller
         // query should retrieve all posible information using the selected weekending input. 
         $weekending = Pivot::where('week_ending', $input)->with('activities', 'harvesters')->get();
         // $arrays = array_values(array_sort($weekending, function ($value) {
-        //     return $value['id'];
+        //     return $value['activities_id'];
         // }));
+        $filtered = $weekending->filter(function($value, $key){
+            return $value;
+        });
         // if (empty($arrays)) {
         // 	Alert::error('Selected Week Ending has no result', 'FAILED!');
         // 	return view('error');
@@ -30,7 +33,7 @@ class ReportsController extends Controller
         // 	Alert::success('Data has been retrieved. Check Result.', 'SUCCESS!');
         // 	return view('search.hir-result', compact('arrays'));
         // }
-        dd($weekending);
+        dd($filtered);
         
     }
 
