@@ -23,17 +23,14 @@ class ReportsController extends Controller
         // $arrays = array_values(array_sort($weekending, function ($value) {
         //     return $value['activities_id'];
         // }));
-        $filtered = $weekending->filter(function($value, $key){
-            return $value;
-        });
-        // if (empty($arrays)) {
-        // 	Alert::error('Selected Week Ending has no result', 'FAILED!');
-        // 	return view('error');
-        // }else{
-        // 	Alert::success('Data has been retrieved. Check Result.', 'SUCCESS!');
-        // 	return view('search.hir-result', compact('arrays'));
-        // }
-        dd($filtered);
+        $arrays = $weekending->unique('activities_id');
+        if (empty($arrays)) {
+        	Alert::error('Selected Week Ending has no result', 'FAILED!');
+        	return view('error');
+        }else{
+        	Alert::success('Data has been retrieved. Check Result.', 'SUCCESS!');
+        	return view('search.hir-result', compact('arrays'));
+        }
         
     }
 
