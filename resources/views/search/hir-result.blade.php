@@ -14,29 +14,27 @@
 					<table id="harvesterSelect" class="table table-stripped table-bordered table-hover" cellspacing="0" width="100%">
 						<thead>
 							<tr>
-								<th>ID</th>
+								<th>Checkbox</th>
 								<th>Last Name</th>
-								{{-- <th>First Name</th>
-								<th>Suffix</th> --}}
-								{{-- <th>Date Loaded</th> --}}
+								<th>First Name</th>
+								<th>Suffix</th>
 							</tr>
 						</thead>
 						<tfoot>
 							<tr>
-								<th>Harvester ID</th>
+								<th>Checkbox</th>
 								<th>Last Name</th>
-								{{-- <th>First Name</th>
-								<th>Suffix</th> --}}
-								{{-- <th>Date Loaded</th> --}}
+								<th>First Name</th>
+								<th>Suffix</th>
 							</tr>
 						</tfoot>
 						<tbody>
 							@foreach($arrays as $data)
 							<tr>	
-								<td>{{ $data->week_ending }}</td>				
-								<td>{{ $data->activities->unitid }}</td>
-								{{-- <td>{{ $data->fname }}</td>
-								<td>{{ $data->suffix }}</td> --}}
+								<td></td>				
+								<td>{{ $data->harvesters->lname }}</td>
+								<td>{{ $data->harvesters->fname }}</td>
+								<td>{{ $data->suffix }}</td>
 								{{-- <td>{{ $data->dateloaded }}</td> --}}
 								{{-- <td align="center">
 									<div class="checkbox">

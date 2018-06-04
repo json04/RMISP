@@ -9,6 +9,8 @@ use App\ActivityWeekending as Pivot;
 use App\WeekEnding;
 use DB;
 use Alert;
+use Excel;
+use Carbon\Carbon;
 
 class ReportsController extends Controller
 {
@@ -23,7 +25,7 @@ class ReportsController extends Controller
         // $arrays = array_values(array_sort($weekending, function ($value) {
         //     return $value['activities_id'];
         // }));
-        $arrays = $weekending->unique('activities_id');
+        $arrays = $weekending->unique('harvesters_id');
         if (empty($arrays)) {
         	Alert::error('Selected Week Ending has no result', 'FAILED!');
         	return view('error');
@@ -32,16 +34,16 @@ class ReportsController extends Controller
         	return view('search.hir-result', compact('arrays'));
         }
         
-    }
+    }  
 
     public function generateHir(Request $request){
-        $harvest = $request->Input('harvestersSelect');
-        $str = str_replace('"', '', $harvest);
-        $dec = json_decode($str[0]);
-        $weekending = $request->Input('we');
-        $query = HarvesterActivity::all();
-        $query->activities()->whereIn('harvester_activities.id', $dec)->get();
-        dd($query);
+        // $harvest = $request->Input('harvestersSelect');
+        // $str = str_replace('"', '', $harvest);
+        // $dec = json_decode($str[0]);
+        // $weekending = $request->Input('we');
+        // $query = HarvesterActivity::all();
+        // $query->activities()->whereIn('harvester_activities.id', $dec)->get();
+        // dd($query);
         // $query = DB::table('harvester_activities')->whereIn('harvester_activities.harvesters_id', $dec)->where('harvester_activities.weekending', $weekending)
         // ->leftjoin('activities', 'harvester_activities.activities_id', '=', 'activities.id')
         // ->leftjoin('harvesters', 'harvester_activities.harvesters_id', '=', 'harvesters.id')->get();
@@ -54,5 +56,14 @@ class ReportsController extends Controller
         // // dd($activities);
 
         // return view('reports.hir_results', compact('activities')); 
+        $carbon = Carbon::now();
+        $time = $carbon->toDateTimeString();
+        Excel::create("Individual_Report_$time", function($excel) {
+            $excel->sheet('Sheetname', function($sheet) {
+
+                // Sheet manipulation
+
+            });
+        })->download('xls');
     }
 }
