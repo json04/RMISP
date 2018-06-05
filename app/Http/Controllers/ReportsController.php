@@ -37,32 +37,19 @@ class ReportsController extends Controller
     }  
 
     public function generateHir(Request $request){
-        // $harvest = $request->Input('harvestersSelect');
-        // $str = str_replace('"', '', $harvest);
-        // $dec = json_decode($str[0]);
-        // $weekending = $request->Input('we');
-        // $query = HarvesterActivity::all();
-        // $query->activities()->whereIn('harvester_activities.id', $dec)->get();
-        // dd($query);
-        // $query = DB::table('harvester_activities')->whereIn('harvester_activities.harvesters_id', $dec)->where('harvester_activities.weekending', $weekending)
-        // ->leftjoin('activities', 'harvester_activities.activities_id', '=', 'activities.id')
-        // ->leftjoin('harvesters', 'harvester_activities.harvesters_id', '=', 'harvesters.id')->get();
-        // $grouped = $query->groupBy('id');
-        // $activities = $query->toArray();
-        // $json = json_decode($query, true);
-        // $activities = array_values(array_sort($json, function ($value) {
-        //     return $value['id'];
-        // }));
-        // // dd($activities);
-
-        // return view('reports.hir_results', compact('activities')); 
+        $harvest = $request->Input('harvestersSelect');
+        $str = str_replace('"', '', $harvest);
+        $dec = json_decode($str[0]);
+        $queries = Pivot::whereIn('harvesters_id', $dec)->with('activities', 'harvesters')->get();
         $carbon = Carbon::now();
         $time = $carbon->toDateTimeString();
-        Excel::create("Individual_Report_$time", function($excel) {
-            $excel->sheet('Sheetname', function($sheet) {
-
-                // Sheet manipulation
-
+        Excel::create("Individual_Report_$time", function($excel) use($queries) {
+            $excel->sheet('Sheetname', function($sheet) use($queries) {
+                foreach ($queries as $value) {
+                    $sheet->fromArray(
+                        $queries
+                    );
+                }
             });
         })->download('xls');
     }

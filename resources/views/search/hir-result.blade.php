@@ -31,7 +31,7 @@
 						<tbody>
 							@foreach($arrays as $data)
 							<tr>	
-								<td></td>				
+								<td>{{ $data->harvesters->id }}</td>				
 								<td>{{ $data->harvesters->lname }}</td>
 								<td>{{ $data->harvesters->fname }}</td>
 								<td>{{ $data->suffix }}</td>
@@ -39,7 +39,7 @@
 								{{-- <td align="center">
 									<div class="checkbox">
 									    <label>
-									      <input type="checkbox" name="harvesterSelect[]" value="{{ $data->harvesters_id }}"> 
+									      <input type="checkbox" name="harvesterSelect[]" value="{{ $data->harvesters->id }}"> 
 									    </label>
 									</div>
 								</td>		 --}}				
@@ -57,7 +57,7 @@
 	</div>
 @endsection
 @section('scripts')
-    <script type="text/javascript">
+	<script type="text/javascript">
 		$(document).ready(function() {
 		var arr = new Array();
 		var secArr = [];
@@ -100,8 +100,8 @@
 		    return index === self.indexOf(elem);
 			});
 			var tojson = JSON.stringify(unique);
-			console.log(tojson);
 		    document.getElementById("harv").value = tojson;
+		    console.log(tojson);
 		})
 		});
 	</script>

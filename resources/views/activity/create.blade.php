@@ -310,6 +310,7 @@
 		    var d = table.row( this ).data();
 		    arr = d[0];
 		    secArr.push(arr);
+		    console.log(d);
 		    //note: needed to fix remove unchecked box from array
 		    var unique = secArr.filter(function(elem, index, self) {
 		    return index === self.indexOf(elem);
