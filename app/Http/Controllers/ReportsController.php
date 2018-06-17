@@ -74,6 +74,7 @@ class ReportsController extends Controller
         $uniqueFNames = array_unique($fnames);
         array_push($names, $uniqueLNames);
         array_push($names, $uniqueFNames);
-        
+        $combine = array_combine($lnames, $fnames);
+        dd($combine);
     }
 }
