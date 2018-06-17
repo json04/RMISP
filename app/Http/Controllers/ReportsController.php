@@ -40,17 +40,40 @@ class ReportsController extends Controller
         $harvest = $request->Input('harvestersSelect');
         $str = str_replace('"', '', $harvest);
         $dec = json_decode($str[0]);
-        $queries = Pivot::whereIn('harvesters_id', $dec)->with('activities', 'harvesters')->get();
         $carbon = Carbon::now();
         $time = $carbon->toDateTimeString();
-        Excel::create("Individual_Report_$time", function($excel) use($queries) {
-            $excel->sheet('Sheetname', function($sheet) use($queries) {
-                foreach ($queries as $value) {
-                    $sheet->fromArray(
-                        $queries
-                    );
-                }
-            });
-        })->download('xls');
+        // Excel::create("Individual_Report_$time", function($excel) use($dec){
+        //     $excel->sheet('Sheetname', function($sheet) use($dec) {
+        //         $queries = Pivot::whereIn('harvesters_id', $dec)->with('activities', 'harvesters')->get();
+        //         $arr = array();
+        //         foreach ($queries as $data) {
+        //             $info = array($data->week_ending, $data->harvesters->lname, $data->activities->dateloaded);
+        //             array_push($arr, $info);
+        //         }
+        //         $sheet->fromArray($arr,null,'A1',false,false)->prependRow(array(
+        //                 'Week Ending', 'Last Name', 'Date Loaded'
+        //             )
+
+        //         );
+        //     });
+        // })->download('xls');
+
+        $queries = Pivot::whereIn('harvesters_id', $dec)->with('activities', 'harvesters')->get();
+
+        //Retrieve names to array
+        $arr = array();
+        foreach ($queries as $data) {
+            $info = array($data->harvesters->lname, $data->harvesters->fname);
+            array_push($arr, $info);
+        }
+        //separate unique names to array
+        $names = array();
+        $lnames = array_column($arr, 0);
+        $fnames = array_column($arr, 1);
+        $uniqueLNames = array_unique($lnames);
+        $uniqueFNames = array_unique($fnames);
+        array_push($names, $uniqueLNames);
+        array_push($names, $uniqueFNames);
+        
     }
 }
