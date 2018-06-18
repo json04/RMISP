@@ -42,39 +42,59 @@ class ReportsController extends Controller
         $dec = json_decode($str[0]);
         $carbon = Carbon::now();
         $time = $carbon->toDateTimeString();
-        // Excel::create("Individual_Report_$time", function($excel) use($dec){
-        //     $excel->sheet('Sheetname', function($sheet) use($dec) {
-        //         $queries = Pivot::whereIn('harvesters_id', $dec)->with('activities', 'harvesters')->get();
-        //         $arr = array();
-        //         foreach ($queries as $data) {
-        //             $info = array($data->week_ending, $data->harvesters->lname, $data->activities->dateloaded);
-        //             array_push($arr, $info);
-        //         }
-        //         $sheet->fromArray($arr,null,'A1',false,false)->prependRow(array(
-        //                 'Week Ending', 'Last Name', 'Date Loaded'
-        //             )
+        Excel::create("Individual_Report_$time", function($excel) use($dec){
+            $excel->sheet('HIR', function($sheet) use($dec) {
+                $queries = Pivot::whereIn('harvesters_id', $dec)->with('activities', 'harvesters')->get();
+                $arr = array();
+                foreach ($queries as $data) {
+                    $info = array($data->harvesters->lname, $data->harvesters->fname);
+                    array_push($arr, $info);
+                }
+                //separate unique names to array
+                $names = array();
+                $lnames = array_column($arr, 0);
+                $fnames = array_column($arr, 1);
+                $uniqueLNames = array_unique($lnames);
+                $uniqueFNames = array_unique($fnames);
+                array_push($names, $uniqueLNames);
+                array_push($names, $uniqueFNames);
+                $key_combine = array_combine($lnames, $fnames);
+                $result = array();
+                foreach ($key_combine as $key => $value) {
+                    array_push($result, $key." ".$value);
+                }
+                //Calculations per Harvester
+                $calcData = array();
+                foreach ($queries as $data) {
+                    $info = array($data->harvesters->lname, $data->harvesters->fname, $data->activities->dateloaded, $data->activities->sdt, $data->activities->unitid, $data->activities->numberofharvester, $data->activities->grosstons, $data->activities->trashpercentage, $data->activities->nettons, $data->activities->rateton, $data->activities->dueperharvesters);
+                    array_push($calcData, $info);
+                }
 
-        //         );
-        //     });
-        // })->download('xls');
-
-        $queries = Pivot::whereIn('harvesters_id', $dec)->with('activities', 'harvesters')->get();
-
-        //Retrieve names to array
-        $arr = array();
-        foreach ($queries as $data) {
-            $info = array($data->harvesters->lname, $data->harvesters->fname);
-            array_push($arr, $info);
-        }
-        //separate unique names to array
-        $names = array();
-        $lnames = array_column($arr, 0);
-        $fnames = array_column($arr, 1);
-        $uniqueLNames = array_unique($lnames);
-        $uniqueFNames = array_unique($fnames);
-        array_push($names, $uniqueLNames);
-        array_push($names, $uniqueFNames);
-        $combine = array_combine($lnames, $fnames);
-        dd($combine);
+                $CalcTotal = array(); //empty
+                $GrossTons = 0;
+                $NetTons = 0;
+                $DuePerHarvester = 0;
+                $Sdt = 0;
+                foreach($calcData as $num => $values) {
+                    // $Sdt += $values[3];
+                    $Sdt = count(array_keys($calcData));
+                    $GrossTons += $values[6];
+                    $NetTons += $values[8];
+                    $DuePerHarvester += $values[10];
+                }
+                //Results moved to an empty array
+                array_push($CalcTotal, $Sdt);
+                array_push($CalcTotal, $GrossTons);
+                array_push($CalcTotal, $NetTons);
+                array_push($CalcTotal, $DuePerHarvester);
+                dd($CalcTotal);
+                // dd($result);
+                // $sheet->fromArray($result,null,'A1',false,false)->prependRow(
+                //     array(
+                //        'Name'
+                //     )
+                // );
+            });
+        })->download('xls');
     }
 }
