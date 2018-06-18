@@ -87,7 +87,12 @@ class ReportsController extends Controller
                 array_push($CalcTotal, $GrossTons);
                 array_push($CalcTotal, $NetTons);
                 array_push($CalcTotal, $DuePerHarvester);
-                dd($CalcTotal);
+                // dd($CalcTotal);
+                //Multidimensional Array from Name and Calculations
+                $MultiArr = array(array());
+                $ArrMerged = array_merge($result, $CalcTotal);
+                $MultiArr = $ArrMerged;
+                dd($MultiArr);
                 // dd($result);
                 // $sheet->fromArray($result,null,'A1',false,false)->prependRow(
                 //     array(
