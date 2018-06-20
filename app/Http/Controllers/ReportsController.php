@@ -46,54 +46,65 @@ class ReportsController extends Controller
             $excel->sheet('HIR', function($sheet) use($dec) {
                 $queries = Pivot::whereIn('harvesters_id', $dec)->with('activities', 'harvesters')->get();
                 $arr = array();
+
+                //separate unique names to array. Do not separate with the same id 
+                // foreach ($queries as $data) {
+                //     $name = $data->harvesters->lname." ".$data->harvesters->fname;
+                //     $arr[$name][] = $data->harvesters->lname." ".$data->harvesters->fname;
+                // }
+                // $result = array_values($arr);
+
                 foreach ($queries as $data) {
-                    $info = array($data->harvesters->lname, $data->harvesters->fname);
-                    array_push($arr, $info);
-                }
-                //separate unique names to array
-                $names = array();
-                $lnames = array_column($arr, 0);
-                $fnames = array_column($arr, 1);
-                $uniqueLNames = array_unique($lnames);
-                $uniqueFNames = array_unique($fnames);
-                array_push($names, $uniqueLNames);
-                array_push($names, $uniqueFNames);
-                $key_combine = array_combine($lnames, $fnames);
-                $result = array();
-                foreach ($key_combine as $key => $value) {
-                    array_push($result, $key." ".$value);
-                }
-                //Calculations per Harvester
-                $calcData = array();
-                foreach ($queries as $data) {
-                    $info = array($data->harvesters->lname, $data->harvesters->fname, $data->activities->dateloaded, $data->activities->sdt, $data->activities->unitid, $data->activities->numberofharvester, $data->activities->grosstons, $data->activities->trashpercentage, $data->activities->nettons, $data->activities->rateton, $data->activities->dueperharvesters);
-                    array_push($calcData, $info);
+                    $name = $data->harvesters->lname." ".$data->harvesters->fname;
+                    $dateloaded = $data->activities->dateloaded;
+                    $sdt = $data->activities->sdt;
+                    $unitid = $data->activities->unitid;
+                    $numberofharvester = $data->activities->numberofharvester;
+                    $grosstons = $data->activities->grosstons;
+                    $trashpercentage = $data->activities->trashpercentage;
+                    $nettons = $data->activities->nettons;
+                    $rateton = $data->activities->rateton;
+                    $dueperharvesters = $data->activities->dueperharvesters;
+
+
+
+                    $arr[$name][] = [
+                        $data->harvesters->lname." ".$data->harvesters->fname,
+                        $dateloaded,
+                        $sdt,
+                        $unitid,
+                        $numberofharvester,
+                        $grosstons,
+                        $trashpercentage,
+                        $nettons,
+                        $rateton,
+                        $dueperharvesters
+                    ];
                 }
 
+                $result = array_values($arr);
+
+
+                //Calculations per Harvester
                 $CalcTotal = array(); //empty
                 $GrossTons = 0;
                 $NetTons = 0;
                 $DuePerHarvester = 0;
                 $Sdt = 0;
-                foreach($calcData as $num => $values) {
-                    // $Sdt += $values[3];
-                    $Sdt = count(array_keys($calcData));
-                    $GrossTons += $values[6];
-                    $NetTons += $values[8];
-                    $DuePerHarvester += $values[10];
+                foreach($result as $values) {
+                    foreach ($values as $num => $data) {
+                        $Sdt = count(array_keys($result));
+                        $GrossTons += $data[5];
+                        $NetTons += $data[8];
+                        $DuePerHarvester += $data[9];
+                    }
                 }
                 //Results moved to an empty array
                 array_push($CalcTotal, $Sdt);
                 array_push($CalcTotal, $GrossTons);
                 array_push($CalcTotal, $NetTons);
                 array_push($CalcTotal, $DuePerHarvester);
-                // dd($CalcTotal);
-                //Multidimensional Array from Name and Calculations
-                $MultiArr = array(array());
-                $ArrMerged = array_merge($result, $CalcTotal);
-                $MultiArr = $ArrMerged;
-                dd($MultiArr);
-                // dd($result);
+                dd($CalcTotal);
                 // $sheet->fromArray($result,null,'A1',false,false)->prependRow(
                 //     array(
                 //        'Name'
@@ -103,3 +114,6 @@ class ReportsController extends Controller
         })->download('xls');
     }
 }
+
+
+// use foreach and separate names and calculations per harvester. Results should be multidimensional array. 
