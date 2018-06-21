@@ -47,13 +47,6 @@ class ReportsController extends Controller
                 $queries = Pivot::whereIn('harvesters_id', $dec)->with('activities', 'harvesters')->get();
                 $arr = array();
 
-                //separate unique names to array. Do not separate with the same id 
-                // foreach ($queries as $data) {
-                //     $name = $data->harvesters->lname." ".$data->harvesters->fname;
-                //     $arr[$name][] = $data->harvesters->lname." ".$data->harvesters->fname;
-                // }
-                // $result = array_values($arr);
-
                 foreach ($queries as $data) {
                     $name = $data->harvesters->lname." ".$data->harvesters->fname;
                     $dateloaded = $data->activities->dateloaded;
@@ -93,7 +86,7 @@ class ReportsController extends Controller
                 $Sdt = 0;
                 foreach($result as $values) {
                     foreach ($values as $num => $data) {
-                        $Sdt = count(array_keys($result));
+                        $Sdt = count(array_keys($values));
                         $GrossTons += $data[5];
                         $NetTons += $data[8];
                         $DuePerHarvester += $data[9];
