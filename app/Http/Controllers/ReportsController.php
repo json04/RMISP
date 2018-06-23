@@ -97,7 +97,22 @@ class ReportsController extends Controller
                 array_push($CalcTotal, $GrossTons);
                 array_push($CalcTotal, $NetTons);
                 array_push($CalcTotal, $DuePerHarvester);
-                dd($CalcTotal);
+                
+
+                $tempArr = array();
+                $names = array();
+                //Unique Names by ID
+                foreach ($queries as $data) {
+                    $info = array($data->harvesters->lname." ".$data->harvesters->fname);
+                    array_push($tempArr, $info);
+                }
+                $arrCol = array_column($tempArr, 0);
+                $names = array_unique($arrCol);
+
+                //Joining Results
+                $result[][] = $names;
+                dd($result);
+
                 // $sheet->fromArray($result,null,'A1',false,false)->prependRow(
                 //     array(
                 //        'Name'
