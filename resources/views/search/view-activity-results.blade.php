@@ -12,7 +12,7 @@
 			    		<h5><strong style="color: yellow;">Reference:</strong> {{$activities->reference}}</h5>
 			    		<h5><strong style="color: yellow;">Unit ID:</strong> {{$activities->unitid}}</h5>
 			    		<h5><strong style="color: yellow;">Haul/Ton:</strong> {{$activities->haulton}}</h5>
-			    		<h5><strong style="color: yellow;">Number of Harvest:</strong> {{$activities->numberofharvester}}</h5>
+			    		<h5><strong style="color: yellow;">Number of Harvesters:</strong> {{$activities->numberofharvester}}</h5>
 			    		<h5><strong style="color: yellow;">Gross Tons:</strong> {{$activities->grosstons}}</h5>
 			    		<h5><strong style="color: yellow;">Trash Total:</strong> {{$activities->trashtotal}}</h5>
 			    		<h5><strong style="color: yellow;">Molases:</strong> {{$activities->molases}}</h5>
@@ -20,7 +20,7 @@
 			    	</div>
 			    	<div class="col-md-4">
 			    		<h5><strong style="color: yellow;">Date Loaded:</strong> {{$activities->dateloaded}}</h5>
-			    		<h5><strong style="color: yellow;">Week Ending:</strong> {{ $activityweekendings->week_ending }}</h5>
+			    		{{-- <h5><strong style="color: yellow;">Week Ending:</strong> {{ $activities->activityweekendings->week_ending }}</h5> --}}
 			    		<h5><strong style="color: yellow;">Driver:</strong> {{$activities->driver}}</h5>
 			    		<h5><strong style="color: yellow;">Rate/Ton:</strong> {{$activities->rateton}}</h5>
 			    		<h5><strong style="color: yellow;">Trash %:</strong> {{$activities->trashpercentage}}</h5>

@@ -4,8 +4,8 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12" id="login-col" align="center">
-            <div class="panel panel-default" id="login-panel">
-                <div class="panel-heading"><h3>Rancho Montalvan Incorporated <br>Sugarcane Production</h3></div>
+            <div class="panel panel-info" id="login-panel">
+                <div class="panel-default"><h3>Rancho Montalvan Incorporated <br>Sugarcane Production</h3></div>
 
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="{{ route('login') }}">
@@ -39,7 +39,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                       {{--  <div class="form-group">
                             <div class="col-md-3 col-md-offset-3">
                                 <div class="checkbox">
                                     <label>
@@ -47,17 +47,17 @@
                                     </label>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="form-group">
-                            <div class="col-md-3 col-md-offset-5">
-                                <button type="submit" class="btn btn-primary">
+                            <div class="col-md-2 col-md-offset-5">
+                                <button type="submit" class="btn btn-bg btn-info">
                                     Login
                                 </button>
 
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                {{-- <a class="btn btn-link" href="{{ route('password.request') }}">
                                     Forgot Your Password?
-                                </a>
+                                </a> --}}
                             </div>
                         </div>
                     </form>

@@ -27,7 +27,17 @@ Route::post('/create-harvester-post', 'HarvesterController@store');
 
 
 //viewing actions
-Route::get('/rmisp/public/view/{id}', 'HomeController@retrieve');
+Route::get('/rmisp/public/view/{id}', 'HomeController@retrieve'); // activity logs
+Route::get('/rmisp/public/harvesters/view/{id}', 'HarvesterController@view'); // viewing harvester information
+
+//update actions
+Route::get('/activity/edit/{id}', 'HomeController@edit'); 
+Route::get('/rmisp/public/edit/{id}', 'HarvesterController@edit'); // update harvester information
+Route::post('/rmisp/public/edit/{id}', 'HarvesterController@update'); // update harvester information
+Route::post('/activity/update/{id}', 'HomeController@update'); // update activity information
+
+//removing actions
+Route::get('/rmisp/public/remove/{id}', 'HarvesterController@remove'); // removing harvester record
 
 //reports
 Route::get('/harvester-individual-report', 'ReportsController@hir');

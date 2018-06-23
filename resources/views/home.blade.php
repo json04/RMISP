@@ -11,7 +11,7 @@
                         <tr>
                             <th>Date loaded</th>
                             <th>Group</th>
-                            <th>Driver</th>
+                            <th>Unit</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -19,7 +19,7 @@
                         <tr>
                             <th>Date loaded</th>
                             <th>Group</th>
-                            <th>Driver</th>
+                            <th>Unit</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>
@@ -28,10 +28,13 @@
                         <tr>    
                             <td>{{ $activity->dateloaded }}</td>
                             <td>{{ $activity->groupnumber }}</td>
-                            <td>{{ $activity->driver }}</td>
-                            <td>
-                                <a type="button" class="btn btn-xs btn-primary" href="{{ url("/rmisp/public/view/$activity->id") }}">
+                            <td>{{ $activity->unitid }}</td>
+                            <td align="center">
+                                <a type="button" class="btn btn-xs btn-default" href="{{ url("/rmisp/public/view/$activity->id") }}">
                                     <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View
+                                </a>
+                                <a type="button" class="btn btn-xs btn-default" href="{{ url("/activity/edit/$activity->id") }}">
+                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
                                 </a>
                             </td>
                         </tr>
@@ -51,7 +54,7 @@
                             <th>Last Name</th>
                             <th>First Name</th>
                             <th>Suffix</th>
-                            {{-- <th>Action</th> --}}
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -59,7 +62,7 @@
                             <th>Last Name</th>
                             <th>First Name</th>
                             <th>Suffix</th>
-                           {{--  <th>Action</th> --}}
+                            <th>Action</th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -67,10 +70,18 @@
                         <tr> 
                             <td>{{ $harvester->lname }}</td>
                             <td>{{ $harvester->fname }}</td>
-                            <td>{{ $harvester->suffix }}</td>
-                            {{-- <td>
-                                Edit(under construction)
-                            </td> --}}
+                            <td align="center">{{ $harvester->suffix }}</td>
+                            <td align="center">
+                                <a type="button" class="btn btn-xs btn-default" href="{{ url("/rmisp/public/harvesters/view/$harvester->id") }}">
+                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View
+                                </a>
+                                <a type="button" class="btn btn-xs btn-default" href="{{ url("/rmisp/public/edit/$harvester->id") }}">
+                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
+                                </a>
+                                <a type="button" class="btn btn-xs btn-default" href="{{ url("/rmisp/public/remove/$harvester->id") }}">
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove
+                                </a>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
