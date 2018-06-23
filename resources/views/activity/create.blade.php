@@ -259,7 +259,7 @@
 					      <div class="col-lg-12 col-sm-12" align="center">
 					        {{-- <a href="/" class="btn btn-default">Back</button> --}}
 					        <p align="center">Please Review before clicking the Submit Button</p>
-					        <button type="submit" class="btn btn-primary">Submit</button>
+					        <button type="submit" class="btn btn-default">Submit</button>
 					      </div>
 					    </div>
 					  </fieldset>
