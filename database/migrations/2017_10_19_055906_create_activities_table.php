@@ -21,23 +21,23 @@ class CreateActivitiesTable extends Migration
             $table->integer('sdt');
             $table->string('unitid');
             $table->integer('groupnumber');
-            $table->double('haulton', 15, 8);
+            $table->double('haulton', 15, 3);
             $table->string('driver');
             $table->string('block');
             $table->integer('numberofharvester');
-            $table->double('rateton', 15, 8);
+            $table->double('rateton', 15, 3);
             $table->string('datemilled');
-            $table->double('grosstons', 15, 8);
-            $table->double('trashpercentage', 15, 8);
+            $table->double('grosstons', 15, 3);
+            $table->double('trashpercentage', 15, 3);
             $table->string('mill')->nullable(); // to verify 
-            $table->double('trashtotal', 15, 8);
-            $table->double('nettons', 15, 8);
-            $table->double('sugar', 15, 8);
-            $table->double('molases', 15, 8);
-            $table->double('dueharvesters', 15, 8);
-            $table->double('dueperharvesters', 15, 8);
-            $table->double('duedriver', 15, 8);
-            $table->double('dueunit', 15, 8);
+            $table->double('trashtotal', 15, 3);
+            $table->double('nettons', 15, 3);
+            $table->double('sugar', 15, 3);
+            $table->double('molases', 15, 3);
+            $table->double('dueharvesters', 15, 3);
+            $table->double('dueperharvesters', 15, 3);
+            $table->double('duedriver', 15, 3);
+            $table->double('dueunit', 15, 3);
             $table->timestamps();
         });
     }

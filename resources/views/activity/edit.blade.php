@@ -370,35 +370,35 @@
 		    	var resOne = $('#inputGROSSTONS').val() * $('#inputTRASHPERCENTAGE').val();
 			    if (resOne == Number.POSITIVE_INFINITY || resOne == Number.NEGATIVE_INFINITY || isNaN(resOne))
 			        resOne = "N/A"; // OR 0
-			    var resDecimalOne = resOne.toFixed(3);
+			    var resDecimalOne = resOne.toFixed(2);
 			    $('#inputTRASHTOTAL').val(resDecimalOne);
 
 			    // NET TONS
 			    var resTwo = $('#inputGROSSTONS').val() - $('#inputTRASHTOTAL').val();
 			    if (resTwo == Number.POSITIVE_INFINITY || resTwo == Number.NEGATIVE_INFINITY || isNaN(resTwo))
 			        resTwo = "N/A"; // OR 0
-			    var resDecimalTwo = resTwo.toFixed(3);
+			    var resDecimalTwo = resTwo.toFixed(2);
 			    $('#inputNETTONS').val(resDecimalTwo);
 
 			    // DUE Harvesters
 			    var resThree = $('#inputRATETON').val() * $('#inputNETTONS').val();
 			    if (resThree == Number.POSITIVE_INFINITY || resThree == Number.NEGATIVE_INFINITY || isNaN(resThree))
 			        resThree = "N/A"; // OR 0
-			    var resDecimalThree = resThree.toFixed(3);
+			    var resDecimalThree = resThree.toFixed(2);
 			    $('#inputDUEHARVESTERS').val(resDecimalThree);
 
 			    // DUE per Harvesters
 			    var resFour = $('#inputDUEHARVESTERS').val() / $('#inputNUMBEROFHARVESTER').val();
 			    if (resFour == Number.POSITIVE_INFINITY || resFour == Number.NEGATIVE_INFINITY || isNaN(resFour))
 			        resFour = "N/A"; // OR 0
-			    var resDecimalFour = resFour.toFixed(3);
+			    var resDecimalFour = resFour.toFixed(2);
 			    $('#inputDUEPERHAVESTERS').val(resDecimalFour);
 
 			    // DUE UNIT
 			    var resFive = $('#inputGROSSTONS').val() * $('#inputHAULTON').val();
 			    if (resFive == Number.POSITIVE_INFINITY || resFive == Number.NEGATIVE_INFINITY || isNaN(resFive))
 			        resFive = "N/A"; // OR 0
-			    var resDecimalFive = resFive.toFixed(3);
+			    var resDecimalFive = resFive.toFixed(2);
 			    $('#inputDUEUNIT').val(resDecimalFive);
 		    });
 		});
