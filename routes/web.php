@@ -41,5 +41,8 @@ Route::get('/rmisp/public/remove/{id}', 'HarvesterController@remove'); // removi
 
 //reports
 Route::get('/harvester-individual-report', 'ReportsController@hir');
+Route::get('/harvester-group-report', 'ReportsController@hgr');
 Route::post('/search-week-ending-hir', 'ReportsController@searchHir');
+Route::post('/search-week-ending-hgr', 'ReportsController@searchHgr');
 Route::post('/generate-week-ending-hir-excel', 'ReportsController@generateHir');
+Route::post('/generate-week-ending-hgr-excel', 'ReportsController@generateHgr');

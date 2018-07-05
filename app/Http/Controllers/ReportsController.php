@@ -38,6 +38,28 @@ class ReportsController extends Controller
         
     }
 
+    public function hgr(){
+        return view('reports.hgr');
+    }
+
+    public function searchHgr(Request $request){
+        $inputs = $request->Input('weekending');
+        // query should retrieve all posible information using the selected weekending input. 
+        $weekending = Pivot::where('week_ending', $inputs)->with('activities', 'harvesters')->get();
+        // $arrays = array_values(array_sort($weekending, function ($value) {
+        //     return $value['activities_id'];
+        // }));
+        $arrays = $weekending->unique('harvesters_id');
+        if (empty($arrays)) {
+            Alert::error('Selected Week Ending has no result', 'FAILED!');
+            return view('error');
+        }else{
+            Alert::success('Data has been retrieved. Check Result.', 'SUCCESS!');
+            return view('search.hgr-result', compact('arrays', 'inputs'));
+        }
+        
+    }
+
 
     //JimmyJS Testing
     public function generateHir(Request $request){
@@ -107,6 +129,69 @@ class ReportsController extends Controller
                         'Due/Harvester' => 'point',
                     ], ['class' => 'center'])
                 ->download("Individual_Report_$time");
+    }
+
+    public function generateHgr(Request $request){
+        $harvest = $request->Input('numberSelect');
+        $weekEnding = $request->Input('weekending');
+        $str = str_replace('"', '', $harvest);
+        $dec = json_decode($str[0]);
+        $carbon = Carbon::now();
+        $time = $carbon->toDateTimeString();
+        //query
+        // $week = Pivot::whereIn('harvesters_id', $dec)->with('activities', 'harvesters')->get();
+        $queries = Activity::select(['groupnumber', 'dateloaded', 'sdt', 'grosstons', 'trashpercentage', 'nettons', 'rateton', 'dueharvesters'])->whereIn('groupnumber', $dec)->where('week_ending', $weekEnding)->orderBy('groupnumber', 'ASC');
+        $arr = array();    
+        $title = 'Harvester Group Report';
+            //header
+
+            $meta = [
+                'Week Ending' => $weekEnding
+            ];
+
+            //set column
+            $columns = [
+                // 'ID' => function($result){
+                //     return $result->harvesters_id;
+                // },
+                'Group Number' => function($result){
+                    return $result->groupnumber;
+                },
+                'Date Loaded' => function($result){
+                    return $result->dateloaded;
+                },
+                'SDT #' => function($result){
+                    return $result->sdt;
+                },
+                'Gross Tons' => function($result){
+                    return $result->grosstons;
+                },
+                '% Trash' => function($result){ 
+                    return $result->trashpercentage;
+                },
+                'Net Tons' => function($result){
+                    return $result->nettons;
+                },
+                'Rate/Ton' => function($result){
+                    return $result->rateton;
+                },
+                'Due/Harvester' => function($result){
+                    return $result->dueharvesters;
+                },
+
+            ];
+
+            return ExcelReport::of($title, $meta, $queries, $columns)
+                ->groupBy([
+                    'Group Number'
+                ])
+                ->editColumns(['Group Number', 'Date Loaded', 'SDT #', 'Gross Tons', '% Trash', 'Net Tons', 'Rate/Ton', 'Due/Harvester'], ['class' => 'center'])
+                ->showTotal([
+                        'Gross Tons' => 'point',
+                        'Net Tons' => 'point',
+                        'Due/Harvester' => 'point',
+                    ], ['class' => 'center'])
+                ->download("Group_Report_$time");
     }
 
         // $tempArr = array();

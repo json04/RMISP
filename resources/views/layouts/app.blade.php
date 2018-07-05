@@ -60,7 +60,7 @@
                                 <a href="{{ url('/harvester-individual-report') }}">Harvester Individual Report</a>
                             </li>
                             <li>
-                                <a href="#">Group Harvesting Report</a>
+                                <a href="{{ url('/harvester-group-report') }}">Group Harvesting Report</a>
                             </li>
                             <li>
                                 <a href="#">Haul Individual Report</a>

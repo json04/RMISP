@@ -27,6 +27,7 @@ class ActivityController extends Controller
         $activity = new Activity;
         $activity->reference = $request->Input('reference');
         $activity->dateloaded = $request->Input('dateloaded');
+        $activity->week_ending = $request->Input('we');
         $activity->sdt = $request->Input('sdt');
         $activity->unitid = $request->Input('unitid');
         $activity->groupnumber = $request->Input('groupnumber');

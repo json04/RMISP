@@ -18,6 +18,7 @@ class CreateActivitiesTable extends Migration
             $table->increments('id');
             $table->integer('reference');
             $table->string('dateloaded');
+            $table->string('week_ending');
             $table->integer('sdt');
             $table->string('unitid');
             $table->integer('groupnumber');
