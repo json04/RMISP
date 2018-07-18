@@ -47,6 +47,7 @@
 						{{-- {!! csrf_field() !!} --}}
 						<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
 						<input type="hidden" name="harvestersSelect[]" id="harv">
+						<input type="hidden" name="actId" value="{{$activities->id}}">
 						<div class="row">
 							<div class="col-lg-12 col-sm-12">
 								<table id="harvestersSelection" class="table table-stripped table-bordered table-hover" cellspacing="0" width="100%">
@@ -69,7 +70,7 @@
 									<tbody>
 										@foreach($harvesters as $harvester)
 										<tr>
-											<td>{{-- <input type="checkbox" id="harvSel" name="select" value="{{ $harvester->id }}"> --}}{{ $harvester->id }}</td>
+											<td>{{ $harvester->id }}</td>
 											<td>{{ $harvester->lname }}</td>
 											<td>{{ $harvester->fname }}</td>
 											<td>{{ $harvester->suffix }}</td>
@@ -315,50 +316,72 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
-		var arr = new Array();
-		var secArr = [];
-		var tok = $("#token").val();
-		var csrf = tok;
-		var values = [];
-		console.log(csrf);
-
-		// var table = $('#harvestersSelection').DataTable();
-		// $(':checkbox[name=select]').on('change', function() {
-		//     var assignedTo = $(':checkbox[name=select]:checked').map(function() {
-		//         return this.value;
-		//     })
-		//     .get();
-		//     var tojson = JSON.stringify(assignedTo);
-		//     document.getElementById("harv").value = tojson;
-		//     console.log(tojson);
-		// });
-
-	    var table = $('#harvestersSelection').DataTable({
-	    	columnDefs: [ {
-            orderable: false,
-            className: 'select-checkbox',
-            targets:   0
-	        } ],
-	        select: {
-	        	select: true,
-	            style:    'multi',
-	            selector: 'td:first-child'
-	        },
-	        order: [[ 1, 'asc' ]],
-		});
-	    $(this).on( 'click', 'tr', function () {
-		    values = [];
-		    var d = table.row( this ).data();
-		    arr = d[0];
-		    secArr.push(arr);
-		    console.log(d);
-		    //note: needed to fix remove unchecked box from array
-		    var unique = secArr.filter(function(elem, index, self) {
-		    return index === self.indexOf(elem);
-			});
-			var tojson = JSON.stringify(unique);
-		    document.getElementById("harv").value = tojson;
-		})
+			var arr = new Array();
+			var secArr = new Array();
+			// var tok = $("#token").val();
+			// var csrf = tok;
+			var values = [];
+			// console.log(csrf);
+		    var table = $('#harvestersSelection').DataTable( {
+		        "processing": true,
+		        "serverSide": true,
+		        "ajax": {
+		        	"url": "<?= route('dataProcessing') ?>",
+		        	"dataType": "json",
+		        	"type": "POST",
+		        	"data": {"_token": "<?= csrf_token() ?>"}
+		        },
+		        "columns":[
+		        	{"data":"id"},
+		        	{"data":"lname"},
+		        	{"data":"fname"},
+		        	{"data":"suffix"}
+		        ],
+		        columnDefs: [ {
+	            orderable: false,
+	            className: 'select-checkbox',
+	            targets:   0
+		        } ],
+		        select: {
+		        	select: true,
+		            style:    'multi',
+		            selector: 'td:first-child'
+		        },
+		        order: [[ 1, 'asc' ]],
+		    });
+		    var events = $('#events');
+		    // var table = $('#example').DataTable( {
+		    //     select: true
+		    // } );
+			 
+		    table
+		        .on( 'select', function ( e, dt, type, indexes ) {
+		            var rowData = table.rows( indexes ).data().toArray();
+		            // events.prepend( '<div><b>'+type+' selection</b> - '+JSON.stringify( rowData )+'</div>' );
+		            console.log("selected");
+				    secArr.push(rowData[0]["id"]);
+				    var unique = secArr.filter(function(elem, index, self) {
+					    return index === self.indexOf(elem);
+					});
+					var tojson = JSON.stringify(unique);
+					console.log(tojson);
+					document.getElementById("harv").value = tojson;
+		        })
+		        .on( 'deselect', function ( e, dt, type, indexes ) {
+		            var rowData = table.rows( indexes ).data().toArray();
+		            // events.prepend( '<div><b>'+type+' <i>de</i>selection</b> - '+JSON.stringify( rowData )+'</div>' );
+		            console.log("deselected");
+					var selData = rowData[0]["id"];
+					var index = secArr.indexOf(selData);
+					if (index > -1) {
+						secArr.splice(index, 1);
+					}
+					var unique = secArr.filter(function(elem, index, self) {
+					    return index === self.indexOf(elem);
+					});
+					var tojson = JSON.stringify(unique);
+					document.getElementById("harv").value = tojson;
+		        });
 		});
 	</script>
 

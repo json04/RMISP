@@ -21,6 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/create-activity', 'ActivityController@create');
 Route::post('/create-activity-post', 'ActivityController@store');
+Route::post('/create-activity', 'ActivityController@getHarvester')->name('dataProcessing');
 
 Route::get('/create-harvester', 'HarvesterController@create');
 Route::post('/create-harvester-post', 'HarvesterController@store');
@@ -42,7 +43,13 @@ Route::get('/rmisp/public/remove/{id}', 'HarvesterController@remove'); // removi
 //reports
 Route::get('/harvester-individual-report', 'ReportsController@hir');
 Route::get('/harvester-group-report', 'ReportsController@hgr');
+Route::get('/hauling-individual-report', 'ReportsController@hlir');
+Route::get('/hauling-group-report', 'ReportsController@hlgr');
 Route::post('/search-week-ending-hir', 'ReportsController@searchHir');
 Route::post('/search-week-ending-hgr', 'ReportsController@searchHgr');
+Route::post('/search-week-ending-hlir', 'ReportsController@searchHlir');
+Route::post('/search-week-ending-hlgr', 'ReportsController@searchHlgr');
 Route::post('/generate-week-ending-hir-excel', 'ReportsController@generateHir');
 Route::post('/generate-week-ending-hgr-excel', 'ReportsController@generateHgr');
+Route::post('/generate-week-ending-hlir-excel', 'ReportsController@generateHlir');
+Route::post('/generate-week-ending-hlgr-excel', 'ReportsController@generateHlgr');

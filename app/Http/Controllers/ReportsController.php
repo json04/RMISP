@@ -50,12 +50,58 @@ class ReportsController extends Controller
         //     return $value['activities_id'];
         // }));
         $arrays = $weekending->unique('harvesters_id');
+        $arr = array();
+        foreach ($arrays as $value) {
+            $arr[] = $value->activities->groupnumber;
+        }
+        $unique_data = array_unique($arr);
+        // dd($unique_data);
+        if (empty($unique_data)) {
+            Alert::error('Selected Week Ending has no result', 'FAILED!');
+            return view('error');
+        }else{
+            Alert::success('Data has been retrieved. Check Result.', 'SUCCESS!');
+            return view('search.hgr-result', compact('unique_data', 'inputs'));
+        }
+        
+    }
+
+    public function hlir(){
+        return view('reports.hlir');
+    }
+
+    public function searchHlir(Request $request){
+        $inputs = $request->Input('weekending');
+        // query should retrieve all posible information using the selected weekending input. 
+        $weekending = Pivot::where('week_ending', $inputs)->with('activities', 'harvesters')->get();
+        $arrays = $weekending->unique('activities_id');
+        
         if (empty($arrays)) {
             Alert::error('Selected Week Ending has no result', 'FAILED!');
             return view('error');
         }else{
             Alert::success('Data has been retrieved. Check Result.', 'SUCCESS!');
-            return view('search.hgr-result', compact('arrays', 'inputs'));
+            return view('search.hlir-result', compact('arrays', 'inputs'));
+        }
+        
+    }
+
+    public function hlgr(){
+        return view('reports.hlgr');
+    }
+
+    public function searchHlgr(Request $request){
+        $inputs = $request->Input('weekending');
+        // query should retrieve all posible information using the selected weekending input. 
+        $weekending = Pivot::where('week_ending', $inputs)->with('activities', 'harvesters')->get();
+        $arrays = $weekending->unique('activities_id');
+        
+        if (empty($arrays)) {
+            Alert::error('Selected Week Ending has no result', 'FAILED!');
+            return view('error');
+        }else{
+            Alert::success('Data has been retrieved. Check Result.', 'SUCCESS!');
+            return view('search.hlgr-result', compact('arrays', 'inputs'));
         }
         
     }
@@ -131,6 +177,8 @@ class ReportsController extends Controller
                 ->download("Individual_Report_$time");
     }
 
+   
+
     public function generateHgr(Request $request){
         $harvest = $request->Input('numberSelect');
         $weekEnding = $request->Input('weekending');
@@ -191,7 +239,133 @@ class ReportsController extends Controller
                         'Net Tons' => 'point',
                         'Due/Harvester' => 'point',
                     ], ['class' => 'center'])
-                ->download("Group_Report_$time");
+                ->download("Harvester_Group_Report_$time");
+    }
+
+    public function generateHlir(Request $request){
+        $hauling = $request->Input('haulingSelect');
+        $weekEnding = $request->Input('weekending');
+        $str = str_replace('"', '', $hauling);
+        $dec = json_decode($str[0]);
+        $carbon = Carbon::now();
+        $time = $carbon->toDateTimeString();
+        //query
+        // $week = Pivot::whereIn('harvesters_id', $dec)->with('activities', 'harvesters')->get();
+        $queries = Activity::select(['dateloaded', 'unitid', 'driver', 'sdt', 'groupnumber', 'grosstons', 'haulton', 'dueunit'])->whereIn('id', $dec)->where('week_ending', $weekEnding)->orderBy('unitid', 'ASC');
+        $arr = array();    
+        $title = 'Hauling Individual Report';
+            //header
+
+            $meta = [
+                'Week Ending' => $weekEnding
+            ];
+
+            //set column
+            $columns = [
+                // 'ID' => function($result){
+                //     return $result->harvesters_id;
+                // },
+                'Date Loaded' => function($result){
+                    return $result->dateloaded;
+                },
+                'Unit Name' => function($result){
+                    return $result->unitid;
+                },
+                'Driver Name' => function($result){
+                    return $result->driver;
+                },
+                'SDT #' => function($result){
+                    return $result->sdt;
+                },
+                'Group Number' => function($result){
+                    return $result->groupnumber;
+                },
+                'Gross Tons' => function($result){
+                    return $result->grosstons;
+                },
+                'Haul/Ton' => function($result){
+                    return $result->haulton;
+                },
+                'Due Unit' => function($result){
+                    return $result->dueunit;
+                },
+    
+
+            ];
+
+            return ExcelReport::of($title, $meta, $queries, $columns)
+                ->groupBy([
+                    'Unit Name'
+                ])
+                ->editColumns(['Group Number', 'Date Loaded', 'SDT #', 'Gross Tons', '% Trash', 'Net Tons', 'Rate/Ton', 'Due/Harvester'], ['class' => 'center'])
+                ->showTotal([
+                        'Gross Tons' => 'point',
+                        'Due Unit' => 'point',
+                    ], ['class' => 'center'])
+                ->download("Hauling_individual_Report_$time");
+    }
+
+    public function generateHlgr(Request $request){
+        $hauling = $request->Input('haulingSelect');
+        $weekEnding = $request->Input('weekending');
+        $str = str_replace('"', '', $hauling);
+        $dec = json_decode($str[0]);
+        $carbon = Carbon::now();
+        $time = $carbon->toDateTimeString();
+        //query
+        // $week = Pivot::whereIn('harvesters_id', $dec)->with('activities', 'harvesters')->get();
+        $queries = Activity::select(['dateloaded', 'unitid', 'driver', 'sdt', 'groupnumber', 'grosstons', 'haulton', 'dueunit'])->whereIn('id', $dec)->where('week_ending', $weekEnding)->orderBy('unitid', 'ASC');
+        $arr = array();    
+        $title = 'Hauling Group Report';
+            //header
+
+            $meta = [
+                'Week Ending' => $weekEnding
+            ];
+
+            //set column
+            $columns = [
+                // 'ID' => function($result){
+                //     return $result->harvesters_id;
+                // },
+                'Date Loaded' => function($result){
+                    return $result->dateloaded;
+                },
+                'Unit Name' => function($result){
+                    return $result->unitid;
+                },
+                'Driver Name' => function($result){
+                    return $result->driver;
+                },
+                'SDT #' => function($result){
+                    return $result->sdt;
+                },
+                'Group Number' => function($result){
+                    return $result->groupnumber;
+                },
+                'Gross Tons' => function($result){
+                    return $result->grosstons;
+                },
+                'Haul/Ton' => function($result){
+                    return $result->haulton;
+                },
+                'Due Unit' => function($result){
+                    return $result->dueunit;
+                },
+    
+
+            ];
+
+            return ExcelReport::of($title, $meta, $queries, $columns)
+                ->groupBy([
+                    'Unit Name'
+                ])
+                ->editColumns(['Group Number', 'Date Loaded', 'SDT #', 'Gross Tons', '% Trash', 'Net Tons', 'Rate/Ton', 'Due/Harvester'], ['class' => 'center'])
+                ->showTotal([
+                        'Gross Tons' => 'point',
+                        'Due Unit' => 'point',
+                    ], ['class' => 'center'])
+                ->download("Hauling_Group_Report_$time");
     }
 
         // $tempArr = array();

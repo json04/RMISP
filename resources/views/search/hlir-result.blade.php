@@ -4,39 +4,37 @@
 		<div class="col-md-12">
 			<div class="col-md-6 col-md-offset-3">
 				<h2 align="center">
-					<strong>Harvester Group Report</strong>
+					<strong>Hauling Individual Report</strong>
 				</h2>
-				<p align="center"><strong>Select</strong> Number by clicking the check box.</p>
-				<form action="{{ url('/generate-week-ending-hgr-excel') }}" method="post" style="margin-top: 5em;">
+				<p align="center"><strong>Select</strong> Individual Truckers by clicking the check box.</p>
+				<form action="{{ url('/generate-week-ending-hlir-excel') }}" method="post" style="margin-top: 5em;">
 					<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
-					<input type="hidden" name="numberSelect[]" id="harv">
+					<input type="hidden" name="haulingSelect[]" id="haul">
 					<input type="hidden" name="weekending" value="{{$inputs}}">
-					<table id="numberSelect" class="table table-stripped table-bordered table-hover" cellspacing="0" width="50%" align="center">
+					<table id="haulingSelect" class="table table-stripped table-bordered table-hover" cellspacing="0" width="100%">
 						<thead>
 							<tr>
 								<th>Checkbox</th>
-								<th>Group Number</th>
+								<th>Date Loaded</th>
+								<th>Unit Name</th>
+								<th>Driver</th>
 							</tr>
 						</thead>
 						<tfoot>
 							<tr>
 								<th>Checkbox</th>
-								<th>Group Number</th>
+								<th>Date Loaded</th>
+								<th>Unit Name</th>
+								<th>Driver</th>
 							</tr>
 						</tfoot>
 						<tbody>
-							@foreach($unique_data as $data)
+							@foreach($arrays as $data)
 							<tr>	
-								<td>{{ $data }}</td>				
-								<td align="center">{{ $data }}</td>
-								{{-- <td>{{ $data->dateloaded }}</td> --}}
-								{{-- <td align="center">
-									<div class="checkbox">
-									    <label>
-									      <input type="checkbox" name="harvesterSelect[]" value="{{ $data->harvesters->id }}"> 
-									    </label>
-									</div>
-								</td>		 --}}				
+								<td>{{ $data->activities->id }}</td>				
+								<td>{{ $data->activities->dateloaded }}</td>
+								<td>{{ $data->activities->unitid }}</td>
+								<td>{{ $data->activities->driver }}</td>
 							</tr>
 							@endforeach
 						</tbody>
@@ -71,7 +69,7 @@
 		//     console.log(tojson);
 		// });
 
-	    var table = $('#numberSelect').DataTable({
+	    var table = $('#haulingSelect').DataTable({
 	    	columnDefs: [ {
             orderable: false,
             className: 'select-checkbox',
@@ -94,7 +92,7 @@
 		    return index === self.indexOf(elem);
 			});
 			var tojson = JSON.stringify(unique);
-		    document.getElementById("harv").value = tojson;
+		    document.getElementById("haul").value = tojson;
 		    console.log(tojson);
 		})
 		});

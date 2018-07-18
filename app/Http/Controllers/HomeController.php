@@ -50,6 +50,7 @@ class HomeController extends Controller
         $activities = Activity::findOrFail($id);
         $activities->reference = $request->Input('reference');
         $activities->dateloaded = $request->Input('dateloaded');
+        $activities->week_ending = $request->Input('we');
         $activities->sdt = $request->Input('sdt');
         $activities->unitid = $request->Input('unitid');
         $activities->groupnumber = $request->Input('groupnumber');
@@ -77,7 +78,7 @@ class HomeController extends Controller
         $dec = json_decode($str[0]);
     
         foreach ($dec as $value) {     
-            $storeHarvester = new Pivot;       
+            $storeHarvester = Pivot::findOrFail($id);
             $storeHarvester->activities_id = $activities->id;
             $storeHarvester->week_ending = $request->Input('we');
             $storeHarvester->harvesters_id = $value;

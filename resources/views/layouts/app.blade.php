@@ -11,8 +11,8 @@
     <title>R.M.I.S.P</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/jquery-ui.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/jquery-ui.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/select.dataTables.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
@@ -63,13 +63,13 @@
                                 <a href="{{ url('/harvester-group-report') }}">Group Harvesting Report</a>
                             </li>
                             <li>
-                                <a href="#">Haul Individual Report</a>
+                                <a href="{{ url('/hauling-individual-report') }}">Haul Individual Report</a>
                             </li>
                             <li>
                                 <a href="#">Harvest/Block Report</a>
                             </li>
                             <li>
-                                <a href="#">Group Hauling Report</a>
+                                <a href="{{ url('/hauling-group-report') }}">Haul Group Report</a>
                             </li>
                         </ul>
                     </li>
@@ -120,8 +120,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/jquery-3.2.1.js') }}"></script>
-    <script src="{{ asset('js/jquery-ui.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/sweetalert.min.js') }}"></script>
     <script src="{{ asset('js/jquery.dataTables.min.js') }}" ></script>
     <script src="{{ asset('js/dataTables.bootstrap.min.js') }}"></script>
