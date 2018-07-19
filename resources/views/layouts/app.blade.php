@@ -65,9 +65,9 @@
                             <li>
                                 <a href="{{ url('/hauling-individual-report') }}">Haul Individual Report</a>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <a href="#">Harvest/Block Report</a>
-                            </li>
+                            </li> --}}
                             <li>
                                 <a href="{{ url('/hauling-group-report') }}">Haul Group Report</a>
                             </li>
