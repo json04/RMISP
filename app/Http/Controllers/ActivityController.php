@@ -21,57 +21,57 @@ class ActivityController extends Controller
         return view('activity.create', compact('harvesters'));
     }
 
-    public function getHarvester(Request $request)
-    {
-        // dd($request->all());
-        $columns = array(
-            0 => 'id',
-            1 => 'lname',
-            2 => 'fname',
-            3 => 'suffix'
-        );
+    // public function getHarvester(Request $request)
+    // {
+    //     // dd($request->all());
+    //     $columns = array(
+    //         0 => 'id',
+    //         1 => 'lname',
+    //         2 => 'fname',
+    //         3 => 'suffix'
+    //     );
 
-        $totalData = Harvester::count();
-        $limit = $request->Input('length');
-        $start = $request->Input('start');
-        $order = $columns[$request->Input('order.0.column')];
-        $dir = $request->Input('order.0.dir');
+    //     $totalData = Harvester::count();
+    //     $limit = $request->Input('length');
+    //     $start = $request->Input('start');
+    //     $order = $columns[$request->Input('order.0.column')];
+    //     $dir = $request->Input('order.0.dir');
 
-        if (empty($request->Input('search.value'))) {
-            $posts = Harvester::offset($start)->limit($limit)->orderBy($order, $dir)->get();   
-            $totalFiltered = Harvester::count();
-        }else{
-            $search = $request->Input('search.value');
-            $posts = Harvester::where('lname', 'like', "%{$search}%")
-                                ->orWhere('fname', 'like', "%{$search}%")
-                                ->offset($start)
-                                ->limit($limit)
-                                ->orderBy($order, $dir)
-                                ->get();
-            $totalFiltered = Harvester::where('lname', 'like', "%{$search}%")
-                                ->orWhere('fname', 'like', "%{$search}%")
-                                ->count();
-        }
+    //     if (empty($request->Input('search.value'))) {
+    //         $posts = Harvester::offset($start)->limit($limit)->orderBy($order, $dir)->get();   
+    //         $totalFiltered = Harvester::count();
+    //     }else{
+    //         $search = $request->Input('search.value');
+    //         $posts = Harvester::where('lname', 'like', "%{$search}%")
+    //                             ->orWhere('fname', 'like', "%{$search}%")
+    //                             ->offset($start)
+    //                             ->limit($limit)
+    //                             ->orderBy($order, $dir)
+    //                             ->get();
+    //         $totalFiltered = Harvester::where('lname', 'like', "%{$search}%")
+    //                             ->orWhere('fname', 'like', "%{$search}%")
+    //                             ->count();
+    //     }
 
-        $data = array();
+    //     $data = array();
 
-        if ($posts) {
-            foreach ($posts as $value) {
-                $nestedData['id'] = $value->id;
-                $nestedData['lname'] = $value->lname;
-                $nestedData['fname'] = $value->fname;
-                $nestedData['suffix'] = $value->suffix;
-                $data[] = $nestedData;
-            }
-        }
-        $json_data = array(
-            "draw"          => intval($request->Input('draw')),
-            "recordsTotal"  => intval($totalData),
-            "recordsFiltered" => intval($totalFiltered),
-            "data"          => $data
-        );
-        echo json_encode($json_data);
-    }
+    //     if ($posts) {
+    //         foreach ($posts as $value) {
+    //             $nestedData['id'] = $value->id;
+    //             $nestedData['lname'] = $value->lname;
+    //             $nestedData['fname'] = $value->fname;
+    //             $nestedData['suffix'] = $value->suffix;
+    //             $data[] = $nestedData;
+    //         }
+    //     }
+    //     $json_data = array(
+    //         "draw"          => intval($request->Input('draw')),
+    //         "recordsTotal"  => intval($totalData),
+    //         "recordsFiltered" => intval($totalFiltered),
+    //         "data"          => $data
+    //     );
+    //     echo json_encode($json_data);
+    // }
     
     public function store(Request $request)
     {
@@ -109,7 +109,7 @@ class ActivityController extends Controller
         $harvest = $request->Input('harvestersSelect');
         $str = str_replace('"', '', $harvest);
         $dec = json_decode($str[0]);
-    
+        
         foreach ($dec as $value) {     
             $storeHarvester = new Pivot;       
             $storeHarvester->activities_id = $activity->id;

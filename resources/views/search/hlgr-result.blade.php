@@ -7,7 +7,7 @@
 					<strong>Hauling Group Report</strong>
 				</h2>
 				<p align="center"><strong>Select</strong> Individual Truckers by clicking the check box.</p>
-				<form action="{{ url('/generate-week-ending-hlir-excel') }}" method="post" style="margin-top: 5em;">
+				<form action="{{ url('/generate-week-ending-hlgr-excel') }}" method="post" style="margin-top: 5em;">
 					<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
 					<input type="hidden" name="haulingSelect[]" id="haul">
 					<input type="hidden" name="weekending" value="{{$inputs}}">
@@ -51,50 +51,57 @@
 @section('scripts')
 	<script type="text/javascript">
 		$(document).ready(function() {
-		var arr = new Array();
-		var secArr = [];
-		var tok = $("#token").val();
-		var csrf = tok;
-		var values = [];
-		console.log(csrf);
-
-		// var table = $('#harvestersSelection').DataTable();
-		// $(':checkbox[name=select]').on('change', function() {
-		//     var assignedTo = $(':checkbox[name=select]:checked').map(function() {
-		//         return this.value;
-		//     })
-		//     .get();
-		//     var tojson = JSON.stringify(assignedTo);
-		//     document.getElementById("harv").value = tojson;
-		//     console.log(tojson);
-		// });
-
-	    var table = $('#haulingSelect').DataTable({
-	    	columnDefs: [ {
-            orderable: false,
-            className: 'select-checkbox',
-            targets:   0
-	        } ],
-	        select: {
-	        	select: true,
-	            style:    'multi',
-	            selector: 'td:first-child'
-	        },
-	        order: [[ 1, 'asc' ]],
-		});
-	    $(this).on( 'click', 'tr', function () {
-		    values = [];
-		    var d = table.row( this ).data();
-		    arr = d[0];
-		    secArr.push(arr);
-		    //note: needed to fix remove unchecked box from array
-		    var unique = secArr.filter(function(elem, index, self) {
-		    return index === self.indexOf(elem);
-			});
-			var tojson = JSON.stringify(unique);
-		    document.getElementById("haul").value = tojson;
-		    console.log(tojson);
-		})
+			var arr = new Array();
+			var secArr = new Array();
+			// var tok = $("#token").val();
+			// var csrf = tok;
+			var values = [];
+			// console.log(csrf);
+		    var table = $('#haulingSelect').DataTable( {
+		        rowId: 'extn',
+		        columnDefs: [ {
+	            orderable: false,
+	            className: 'select-checkbox',
+	            targets:   0
+		        } ],
+		        select: {
+		        	select: true,
+		            style:    'multi',
+		            selector: 'td:first-child'
+		        },
+		        dom: 'Bfrtip',
+		        order: [[ 1, 'asc' ]],
+		    });
+		    var events = $('#events');
+		    table
+		        .on( 'select', function ( e, dt, type, indexes ) {
+		            var rowData = table.rows( indexes ).data().toArray();
+		            // events.prepend( '<div><b>'+type+' selection</b> - '+JSON.stringify( rowData )+'</div>' );
+		            console.log("selected");
+				    secArr.push(rowData[0][0]);
+				    var unique = secArr.filter(function(elem, index, self) {
+					    return index === self.indexOf(elem);
+					});
+					var tojson = JSON.stringify(unique);
+					console.log(tojson);
+					document.getElementById("haul").value = tojson;
+		        })
+		        .on( 'deselect', function ( e, dt, type, indexes ) {
+		            var rowData = table.rows( indexes ).data().toArray();
+		            // events.prepend( '<div><b>'+type+' <i>de</i>selection</b> - '+JSON.stringify( rowData )+'</div>' );
+		            console.log("deselected");
+					var selData = rowData[0][0];
+					var index = secArr.indexOf(selData);
+					if (index > -1) {
+						secArr.splice(index, 1);
+					}
+					var unique = secArr.filter(function(elem, index, self) {
+					    return index === self.indexOf(elem);
+					});
+					var tojson = JSON.stringify(unique);
+					console.log(tojson);
+					document.getElementById("haul").value = tojson;
+		        });
 		});
 	</script>
 @endsection

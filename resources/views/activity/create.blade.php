@@ -28,7 +28,7 @@
 											<th>Suffix</th>
 										</tr>
 									</tfoot>
-									{{-- <tbody>
+									<tbody>
 										@foreach($harvesters as $harvester)
 										<tr>
 											<td>{{ $harvester->id }}</td>
@@ -37,7 +37,7 @@
 											<td>{{ $harvester->suffix }}</td>
 										</tr>
 										@endforeach
-									</tbody> --}}
+									</tbody>
 								</table>
 							</div>
 						</div>
@@ -280,20 +280,7 @@
 			var values = [];
 			// console.log(csrf);
 		    var table = $('#harvestersSelection').DataTable( {
-		        "processing": true,
-		        "serverSide": true,
-		        "ajax": {
-		        	"url": "<?= route('dataProcessing') ?>",
-		        	"dataType": "json",
-		        	"type": "POST",
-		        	"data": {"_token": "<?= csrf_token() ?>"}
-		        },
-		        "columns":[
-		        	{"data":"id"},
-		        	{"data":"lname"},
-		        	{"data":"fname"},
-		        	{"data":"suffix"}
-		        ],
+		        rowId: 'extn',
 		        columnDefs: [ {
 	            orderable: false,
 	            className: 'select-checkbox',
@@ -304,19 +291,16 @@
 		            style:    'multi',
 		            selector: 'td:first-child'
 		        },
+		        dom: 'Bfrtip',
 		        order: [[ 1, 'asc' ]],
 		    });
 		    var events = $('#events');
-		    // var table = $('#example').DataTable( {
-		    //     select: true
-		    // } );
-			 
 		    table
 		        .on( 'select', function ( e, dt, type, indexes ) {
 		            var rowData = table.rows( indexes ).data().toArray();
 		            // events.prepend( '<div><b>'+type+' selection</b> - '+JSON.stringify( rowData )+'</div>' );
 		            console.log("selected");
-				    secArr.push(rowData[0]["id"]);
+				    secArr.push(rowData[0][0]);
 				    var unique = secArr.filter(function(elem, index, self) {
 					    return index === self.indexOf(elem);
 					});
@@ -328,7 +312,7 @@
 		            var rowData = table.rows( indexes ).data().toArray();
 		            // events.prepend( '<div><b>'+type+' <i>de</i>selection</b> - '+JSON.stringify( rowData )+'</div>' );
 		            console.log("deselected");
-					var selData = rowData[0]["id"];
+					var selData = rowData[0][0];
 					var index = secArr.indexOf(selData);
 					if (index > -1) {
 						secArr.splice(index, 1);
@@ -337,6 +321,7 @@
 					    return index === self.indexOf(elem);
 					});
 					var tojson = JSON.stringify(unique);
+					console.log(tojson);
 					document.getElementById("harv").value = tojson;
 		        });
 		});
@@ -407,3 +392,4 @@
 	  } );
 	</script>
 @endsection
+
