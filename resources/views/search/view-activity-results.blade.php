@@ -43,5 +43,36 @@
 			  	</div>
 			</div>
 		</div>
+		<div class="col-md-8 col-md-offset-2">
+			<h5><strong>Assigned Harvesters</strong></h5>
+			<table id="harvesters" class="table table-stripped table-bordered table-hover" cellspacing="0" width="100%">
+				<thead>
+	                <tr>
+	                    <th>ID</th>
+	                    <th>Last Name</th>
+	                    <th>First Name</th>
+	                    <th>Suffix</th>
+	                </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>ID</th>
+	                    <th>Last Name</th>
+	                    <th>First Name</th>
+	                    <th>Suffix</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach($harvesters as $harvester)
+                    <tr>    
+                        <td>{{ $harvester->harvesters->id }}</td>
+                        <td>{{ $harvester->harvesters->lname }}</td>
+                        <td>{{ $harvester->harvesters->fname }}</td>
+                        <td>{{ $harvester->harvesters->suffix }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+			</table>
+		</div>
 	</div>
 @endsection 

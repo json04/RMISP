@@ -35,14 +35,16 @@ class HomeController extends Controller
     public function retrieve($id)
     {
         $activities = Activity::findOrFail($id);
-        return view('search.view-activity-results', compact('activities'));
+        $harvesters = Pivot::where('activities_id', $id)->with('harvesters')->get();
+        return view('search.view-activity-results', compact('activities', 'harvesters'));
     }
 
     public function edit($id)
     {
         $activities = Activity::findOrFail($id);
+        $assignedharvesters = Pivot::where('activities_id', $id)->with('harvesters')->get();
         $harvesters = Harvester::all();
-        return view('activity.edit', compact('activities', 'harvesters'));
+        return view('activity.edit', compact('activities', 'harvesters', 'assignedharvesters'));
     }
 
     public function update(Request $request, $id)
